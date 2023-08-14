@@ -12,7 +12,7 @@ class MainTaskController extends Controller
     public function index()
     {
         $user = Auth::user();
-        return Inertia::render('Toppage', ['maintasks' => MainTask::all()->where('user_id', $user->id), 'user' => Auth::user()]);
+        return Inertia::render('MainTask/IndexMainTask', ['maintasks' => MainTask::all()->where('user_id', $user->id), 'user' => Auth::user()]);
     }
 
     public function store(Request $request)
@@ -23,11 +23,11 @@ class MainTaskController extends Controller
         $mainTask->purpose = $request->purpose;
         $mainTask->save();
 
-        return to_route('toppage');
+        return to_route('mainTask.index');
     }
 
     public function create()
     {
-        return Inertia::render('CreateTask');
+        return Inertia::render('MainTask/CreateMainTask');
     }
 }

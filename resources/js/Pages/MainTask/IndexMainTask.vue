@@ -1,6 +1,6 @@
 <template>
     <h1>現在のタスク一覧</h1>
-    <Link as="button" method="get" :href="route('create', {id: user.id})">新規作成画面へ</Link>
+    <Link as="button" method="get" :href="route('mainTask.create', {id: user.id})">新規作成画面へ</Link>
     <div v-for="maintask in maintasks" :key="maintask.id">
       <div>
           <div>タイトル：{{ maintask.title }}</div>

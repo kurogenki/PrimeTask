@@ -40,7 +40,7 @@ const form = reactive({
 })
 
 const createMainTask = () => {
-  Inertia.post('/create/{id}', form)
+  Inertia.post('mainTask.store', form)
 }
 
 </script>

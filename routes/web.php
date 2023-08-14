@@ -17,9 +17,9 @@ use Inertia\Inertia;
 |
 */
 Route::group(['middleware' => ['auth']], function(){
-    Route::get('toppage', [MainTaskController::class, 'index'])->name('toppage');
-    Route::post('create/{id}', [MainTaskController::class, 'store'])->name('mainTask.store');
-    Route::get('create/{id}', [MainTaskController::class, 'create'])->name('create');
+    Route::get('mainTask', [MainTaskController::class, 'index'])->name('mainTask.index');
+    Route::post('mainTask/create/{id}', [MainTaskController::class, 'store'])->name('mainTask.store');
+    Route::get('mainTask/create/{id}', [MainTaskController::class, 'create'])->name('mainTask.create');
 });
 
 
