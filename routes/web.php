@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MainTaskController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -15,6 +16,13 @@ use Inertia\Inertia;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::group(['middleware' => ['auth']], function(){
+    Route::get('mainTask', [MainTaskController::class, 'index'])->name('mainTask.index');
+    Route::post('mainTask/create/{id}', [MainTaskController::class, 'store'])->name('mainTask.store');
+    Route::get('mainTask/create/{id}', [MainTaskController::class, 'create'])->name('mainTask.create');
+});
+
+
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
