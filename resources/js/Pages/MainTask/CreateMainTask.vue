@@ -1,10 +1,13 @@
 <template>
     新規作成画面
+    <!-- <div>{{ Props.user.email }}</div> -->
+
     <form @submit.prevent="createMainTask">
     <br>
     タイトル：<input type="text" v-model="form.title">
+    <div v-if="Props.errors.title">{{ Props.errors.title }}</div>
     <br>
-    <!-- <input type="text" v-model="newPriorityRank">優先度： -->
+    <!-- 優先度：<input type="text" v-model="newPriorityRank"> -->
     目的：<input type="text" v-model="form.purpose">
     <br>
     開始日：<input type="date" v-model="form.startAt">
@@ -15,6 +18,8 @@
     <br>
     <button>formタグの保存ボタン</button>
     </form>
+
+
     <!-- <Link as="button" method="post" :href="route('mainTask.store', {id: user.id})"
     :data="{
         userId: user.id,
@@ -23,15 +28,20 @@
 
 </template>
 <script setup>
-// import { Link } from '@inertiajs/vue3';
 import { Link } from '@inertiajs/inertia-vue3';
 import { reactive } from 'vue'
 import { Inertia } from '@inertiajs/inertia'
 import { ref } from 'vue';
 
-const newTitle = ref()
+const Props = defineProps({
+    user: Object,
+    errors: Object
+})
+
+// const newTitle = ref()
 
 const form = reactive({
+  id: Props.user.id,
   title: null,
   purpose: null ,
   startAt: null,
@@ -39,8 +49,16 @@ const form = reactive({
   memo: null,
 })
 
-const createMainTask = () => {
-  Inertia.post('mainTask.store', form)
+const createMainTask = userId => {
+ Inertia.post(`/mainTask/${userId}`, form);
 }
+
+
+const deleteTask = id => {
+    Inertia.delete(`/mainTask/${id}`, {
+        onBefore: () => confirm('本当に削除しますか?')
+    });
+}
+
 
 </script>
