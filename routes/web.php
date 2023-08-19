@@ -18,9 +18,13 @@ use Inertia\Inertia;
 */
 Route::group(['middleware' => ['auth']], function(){
     Route::get('mainTask', [MainTaskController::class, 'index'])->name('mainTask.index');
-    Route::post('mainTask/create/{id}', [MainTaskController::class, 'store'])->name('mainTask.store');
-    Route::get('mainTask/create/{id}', [MainTaskController::class, 'create'])->name('mainTask.create');
+    Route::post('mainTask/{id}', [MainTaskController::class, 'store'])->name('mainTask.store');
+    Route::delete('mainTask/{id}', [MainTaskController::class, 'delete'])->name('mainTask.delete');
+    // Route::get('mainTask/{id}', [MainTaskController::class, 'show'])->name('mainTask.show');
 });
+
+// Route::post('mainTask/create/{id}', [MainTaskController::class, 'store'])->name('mainTask.store');
+// Route::get('mainTask/create/{id}', [MainTaskController::class, 'create'])->name('mainTask.create');
 
 
 

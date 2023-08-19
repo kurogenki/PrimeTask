@@ -15,8 +15,18 @@ class MainTaskController extends Controller
         return Inertia::render('MainTask/IndexMainTask', ['maintasks' => MainTask::all()->where('user_id', $user->id), 'user' => Auth::user()]);
     }
 
+    public function show($id) {
+        $mainTask = MainTask::findOrFail($id);
+
+        return Inertia::render('MainTask/ShowMainTask', ['maintask' => $mainTask]);
+    }
+
     public function store(Request $request)
     {
+        $request->validate([
+            'title' => ['required', 'max:20']
+        ]);
+
         $mainTask = new MainTask;
         $mainTask->user_id = Auth::user()->id;
         $mainTask->title = $request->title;
@@ -29,5 +39,13 @@ class MainTaskController extends Controller
     public function create()
     {
         return Inertia::render('MainTask/CreateMainTask');
+    }
+
+    public function delete($id)
+    {
+        $mainTask = MainTask::findOrFail($id);
+        $mainTask->delete();
+
+        return to_route('mainTask.index')->with(['message' => '削除しました。']);
     }
 }
