@@ -20,7 +20,7 @@
 
 
 
-  <CreateMainTask v-if="creatingMode" :user="editingUser" :errors="Props.errors"></CreateMainTask>
+  <CreateMainTask v-if="creatingMode" :user="editingUser" :errors="Props.errors" :statuses="Props.taskStatus"></CreateMainTask>
   <ShowMainTask v-if="showMode" :mainTask = editingMainTask></ShowMainTask>
 </template>
 <script setup>
@@ -33,8 +33,10 @@ import CreateMainTask from './CreateMainTask.vue';
 const Props = defineProps({
     maintasks: Object,
     user: Object,
+    taskStatus: Array,
     errors: Object
 });
+console.log(Props.taskStatus);
 
 
 const deleteTask = id => {

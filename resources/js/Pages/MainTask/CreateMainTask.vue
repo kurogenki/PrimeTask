@@ -7,7 +7,10 @@
     タイトル：<input type="text" v-model="form.title">
     <div v-if="Props.errors.title">{{ Props.errors.title }}</div>
     <br>
-    <!-- 優先度：<input type="text" v-model="newPriorityRank"> -->
+    状態：<select v-model="form.status">
+        <option value=""></option>
+        <option v-for="status in Props.statuses" :key="status">{{ status }}</option>
+    </select>
     目的：<input type="text" v-model="form.purpose">
     <br>
     開始日：<input type="date" v-model="form.startAt">
@@ -35,6 +38,7 @@ import { ref } from 'vue';
 
 const Props = defineProps({
     user: Object,
+    statuses: Array,
     errors: Object
 })
 
@@ -44,6 +48,7 @@ const form = reactive({
   id: Props.user.id,
   title: null,
   purpose: null ,
+  status: null,
   startAt: null,
   finishAt: null,
   memo: null,
@@ -51,14 +56,8 @@ const form = reactive({
 
 const createMainTask = userId => {
  Inertia.post(`/mainTask/${userId}`, form);
+ form.title = null;
+ form.purpose = null;
+ form.startAt = null;
 }
-
-
-const deleteTask = id => {
-    Inertia.delete(`/mainTask/${id}`, {
-        onBefore: () => confirm('本当に削除しますか?')
-    });
-}
-
-
 </script>
