@@ -1,7 +1,5 @@
 <template>
     新規作成画面
-    <!-- <div>{{ Props.user.email }}</div> -->
-
     <form @submit.prevent="createMainTask">
     <br>
     タイトル：<input type="text" v-model="form.title">
@@ -41,8 +39,6 @@ const Props = defineProps({
     statuses: Array,
     errors: Object
 })
-
-// const newTitle = ref()
 
 const form = reactive({
   id: Props.user.id,

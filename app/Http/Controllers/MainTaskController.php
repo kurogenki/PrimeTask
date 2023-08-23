@@ -49,6 +49,17 @@ class MainTaskController extends Controller
         return Inertia::render('MainTask/CreateMainTask');
     }
 
+    public function update(Request $request, $id) {
+        $mainTask = MainTask::findOrFail($id);
+
+        $mainTask->title = $request->title;
+        // $mainTask->memo = $request->memo;
+        $mainTask->save();
+        return to_route('mainTask.index') ->with([
+        'message' => '更新しました。',
+        'status' => 'success' ]);
+    }
+
     public function delete($id)
     {
         $mainTask = MainTask::findOrFail($id);
