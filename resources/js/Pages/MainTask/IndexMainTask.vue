@@ -2,11 +2,10 @@
   <div>
     <h1 class="text-xl">現在のタスク一覧</h1>
     <div>
-    <!-- <Link as="button" method="get" :href="route('mainTask.create', {id: user.id})">新規作成画面へ</Link> -->
     <div>
       <div @click="createMainTask(Props.user)">メインタスクを追加する</div>
     </div>
-    <div v-for="maintask in Props.maintasks" :key="maintask.id">
+    <div v-for="maintask in maintasks" :key="maintask.id">
       <div class='mb-4' @click="showMainTask(maintask); showMode = true">
           ID：{{ maintask.id }}　/
           タイトル：{{ maintask.title }}
@@ -20,22 +19,24 @@
 
 
 
-  <CreateMainTask v-if="creatingMode" :user="editingUser" :errors="Props.errors"></CreateMainTask>
-  <ShowMainTask v-if="showMode" :mainTask = editingMainTask></ShowMainTask>
+  <CreateMainTask v-if="creatingMode && !showMode" :user="editingUser" :errors="Props.errors" :statuses="Props.taskStatus"></CreateMainTask>
+  <ShowMainTask v-if="showMode && !creatingMode" :mainTask = editingMainTask @update="showMainTask"></ShowMainTask>
 </template>
 <script setup>
 import { Inertia } from '@inertiajs/inertia';
 import { Link } from '@inertiajs/inertia-vue3';
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, toRefs, watch } from 'vue';
 import ShowMainTask from './ShowMainTask.vue';
 import CreateMainTask from './CreateMainTask.vue';
 
 const Props = defineProps({
     maintasks: Object,
     user: Object,
+    taskStatus: Array,
     errors: Object
 });
 
+const { maintasks } = toRefs(Props);
 
 const deleteTask = id => {
     Inertia.delete(`/mainTask/${id}`, {
@@ -43,29 +44,20 @@ const deleteTask = id => {
     });
 }
 
-// const isRendered = ref(true);
-// onMounted(() => {
-//   if (isRendered.value) {
-//     isRendered.value = false;
-//   }
-// });
-
 const creatingMode = ref(false);
+const showMode = ref(false);
 
 const editingUser = ref()
 const createMainTask = user => {
-  creatingMode.value = true;
-  editingUser.value = user;
+	showMode.value = false;
+	creatingMode.value = true;
+	editingUser.value = user;
 }
 
-const showMode = ref(false);
 const editingMainTask = ref();
 const showMainTask = maintask => {
-  editingMainTask.value = maintask;
-    // showMode.value = true;
-    // console.log(editingMainTask.value);
-    // Inertia.get(`/mainTask/${id}`)
+	creatingMode.value = false;
+	showMode.value = true;
+	editingMainTask.value = maintask;
 }
-
-
 </script>

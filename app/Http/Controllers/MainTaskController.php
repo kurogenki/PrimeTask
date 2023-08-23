@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\TaskStatus;
 use App\Models\MainTask;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,7 +13,13 @@ class MainTaskController extends Controller
     public function index()
     {
         $user = Auth::user();
-        return Inertia::render('MainTask/IndexMainTask', ['maintasks' => MainTask::all()->where('user_id', $user->id), 'user' => Auth::user()]);
+        $taskStatus = TaskStatus::getValues();
+
+        return Inertia::render('MainTask/IndexMainTask', [
+            'maintasks' => MainTask::all()->where('user_id', $user->id),
+            'user' => Auth::user(),
+            'taskStatus' => $taskStatus
+        ]);
     }
 
     public function show($id) {
@@ -31,6 +38,7 @@ class MainTaskController extends Controller
         $mainTask->user_id = Auth::user()->id;
         $mainTask->title = $request->title;
         $mainTask->purpose = $request->purpose;
+        $mainTask->status = $request->status;
         $mainTask->save();
 
         return to_route('mainTask.index');
@@ -39,6 +47,17 @@ class MainTaskController extends Controller
     public function create()
     {
         return Inertia::render('MainTask/CreateMainTask');
+    }
+
+    public function update(Request $request, $id) {
+        $mainTask = MainTask::findOrFail($id);
+
+        $mainTask->title = $request->title;
+        // $mainTask->memo = $request->memo;
+        $mainTask->save();
+        return to_route('mainTask.index') ->with([
+        'message' => '更新しました。',
+        'status' => 'success' ]);
     }
 
     public function delete($id)
