@@ -3,11 +3,11 @@
     <form @submit.prevent="createMainTask">
     <br>
     タイトル：<input type="text" v-model="form.title">
-    <div v-if="Props.errors.title">{{ Props.errors.title }}</div>
+    <div v-if="props.errors.title">{{ props.errors.title }}</div>
     <br>
     状態：<select v-model="form.status">
         <option value=""></option>
-        <option v-for="status in Props.statuses" :key="status">{{ status }}</option>
+        <option v-for="status in props.statuses" :key="status">{{ status }}</option>
     </select>
     目的：<input type="text" v-model="form.purpose">
     <br>
@@ -34,14 +34,16 @@ import { reactive } from 'vue'
 import { Inertia } from '@inertiajs/inertia'
 import { ref } from 'vue';
 
-const Props = defineProps({
+const props = defineProps({
     user: Object,
     statuses: Array,
     errors: Object
 })
 
+const emit = defineEmits(['create']);
+
 const form = reactive({
-  id: Props.user.id,
+  id: props.user.id,
   title: null,
   purpose: null ,
   status: null,
@@ -52,6 +54,7 @@ const form = reactive({
 
 const createMainTask = userId => {
  Inertia.post(`/mainTask/${userId}`, form);
+ emit('create')
  form.title = null;
  form.purpose = null;
  form.startAt = null;

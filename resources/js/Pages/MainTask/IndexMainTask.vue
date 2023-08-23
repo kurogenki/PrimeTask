@@ -3,7 +3,7 @@
     <h1 class="text-xl">現在のタスク一覧</h1>
     <div>
     <div>
-      <div @click="createMainTask(Props.user)">メインタスクを追加する</div>
+      <div @click="createMainTask(props.user)">メインタスクを追加する</div>
     </div>
     <div v-for="maintask in maintasks" :key="maintask.id">
       <div class='mb-4' @click="showMainTask(maintask); showMode = true">
@@ -19,7 +19,7 @@
 
 
 
-  <CreateMainTask v-if="creatingMode && !showMode" :user="editingUser" :errors="Props.errors" :statuses="Props.taskStatus"></CreateMainTask>
+  <CreateMainTask v-if="creatingMode && !showMode" :user="editingUser" :errors="props.errors" :statuses="props.taskStatus" @create="creatingMode = false"></CreateMainTask>
   <ShowMainTask v-if="showMode && !creatingMode" :mainTask = editingMainTask @update="showMainTask"></ShowMainTask>
 </template>
 <script setup>
@@ -29,14 +29,14 @@ import { onMounted, ref, toRefs, watch } from 'vue';
 import ShowMainTask from './ShowMainTask.vue';
 import CreateMainTask from './CreateMainTask.vue';
 
-const Props = defineProps({
+const props = defineProps({
     maintasks: Object,
     user: Object,
     taskStatus: Array,
     errors: Object
 });
 
-const { maintasks } = toRefs(Props);
+const { maintasks } = toRefs(props);
 
 const deleteTask = id => {
     Inertia.delete(`/mainTask/${id}`, {
