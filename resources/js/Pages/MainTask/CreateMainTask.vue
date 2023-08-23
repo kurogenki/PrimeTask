@@ -5,11 +5,17 @@
     タイトル：<input type="text" v-model="form.title">
     <div v-if="props.errors.title">{{ props.errors.title }}</div>
     <br>
-    状態：<select v-model="form.status">
-        <option value=""></option>
-        <option v-for="status in props.statuses" :key="status">{{ status }}</option>
-    </select>
+    優先度：<select v-model="form.priorityRank">
+              <option value=""></option>
+              <option v-for="priorityRank in props.priorityRanks" :key="priorityRank">{{ priorityRank }}</option>
+            </select>
+    <br>
     目的：<input type="text" v-model="form.purpose">
+    <br>
+    状態：<select v-model="form.status">
+            <option value=""></option>
+            <option v-for="status in props.statuses" :key="status">{{ status }}</option>
+          </select>
     <br>
     開始日：<input type="date" v-model="form.startAt">
     <br>
@@ -37,6 +43,7 @@ import { ref } from 'vue';
 const props = defineProps({
     user: Object,
     statuses: Array,
+    priorityRanks: Array,
     errors: Object
 })
 
@@ -45,6 +52,7 @@ const emit = defineEmits(['create']);
 const form = reactive({
   id: props.user.id,
   title: null,
+  priorityRank: null,
   purpose: null ,
   status: null,
   startAt: null,
@@ -55,8 +63,5 @@ const form = reactive({
 const createMainTask = userId => {
  Inertia.post(`/mainTask/${userId}`, form);
  emit('create')
- form.title = null;
- form.purpose = null;
- form.startAt = null;
 }
 </script>

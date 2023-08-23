@@ -19,8 +19,8 @@
 
 
 
-  <CreateMainTask v-if="creatingMode && !showMode" :user="editingUser" :errors="props.errors" :statuses="props.taskStatus" @create="creatingMode = false"></CreateMainTask>
-  <ShowMainTask v-if="showMode && !creatingMode" :mainTask = editingMainTask @update="showMainTask"></ShowMainTask>
+  <CreateMainTask v-if="creatingMode && !showMode" :user="editingUser" :statuses="props.taskStatuses" :priorityRanks ='props.priorityRanks'  :errors="props.errors" @create="creatingMode = false"></CreateMainTask>
+  <ShowMainTask v-if="showMode && !creatingMode" :statuses="props.taskStatuses" :priorityRanks ='props.priorityRanks' :mainTask = editingMainTask @update="showMainTask"></ShowMainTask>
 </template>
 <script setup>
 import { Inertia } from '@inertiajs/inertia';
@@ -32,7 +32,8 @@ import CreateMainTask from './CreateMainTask.vue';
 const props = defineProps({
     maintasks: Object,
     user: Object,
-    taskStatus: Array,
+    taskStatuses: Array,
+    priorityRanks: Array,
     errors: Object
 });
 
