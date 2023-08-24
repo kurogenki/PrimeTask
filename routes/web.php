@@ -24,11 +24,6 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('finishMainTask/{id}', [MainTaskController::class, 'finishMainTask'])->name('finishMainTask');
 });
 
-// Route::post('mainTask/create/{id}', [MainTaskController::class, 'store'])->name('mainTask.store');
-// Route::get('mainTask/create/{id}', [MainTaskController::class, 'create'])->name('mainTask.create');
-
-
-
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
