@@ -9,6 +9,8 @@ class MainTask extends Model
 {
     protected $table = 'maintasks';
 
+    protected $fillable = ['status', 'finish_at'];
+
     use HasFactory;
 
     public function user()

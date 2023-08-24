@@ -7,14 +7,13 @@
     </div>
     <div v-for="maintask in maintasks" :key="maintask.id">
       <div class='mb-4' @click="showMainTask(maintask); showMode = true">
-          ID：{{ maintask.id }}　/
-          タイトル：{{ maintask.title }}
-          <button style="color: red;" @click.stop="deleteTask(maintask.id)">削除</button>
+        <button @click.stop="finishMainTask(maintask.id)">完了ボタン</button>
+        ID：{{ maintask.id }}　/
+        タイトル：{{ maintask.title }}
+        <button style="color: red;" @click.stop="deleteTask(maintask.id)">削除</button>
       </div>
     </div>
-
     </div>
-
   </div>
 
 
@@ -60,5 +59,9 @@ const showMainTask = maintask => {
 	creatingMode.value = false;
 	showMode.value = true;
 	editingMainTask.value = maintask;
+}
+
+const finishMainTask = mainTaskId => {
+    Inertia.get(`finishMainTask/${mainTaskId}`);
 }
 </script>

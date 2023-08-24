@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Enums\PriorityRank;
 use App\Enums\TaskStatus;
 use App\Models\MainTask;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -78,5 +79,17 @@ class MainTaskController extends Controller
         $mainTask->delete();
 
         return to_route('mainTask.index')->with(['message' => '削除しました。']);
+    }
+
+    public function finishMainTask($id)
+    {
+        $mainTask = MainTask::findOrFail($id);
+        $mainTask->update([
+            'status' => TaskStatus::COMPLETED,
+            'finish_at' => Carbon::now()
+        ]);
+        $mainTask->save();
+
+        return to_route('mainTask.index')->with(['message' => 'タスクの状態を完了に変更しました。']);
     }
 }
