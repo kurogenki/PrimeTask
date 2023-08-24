@@ -21,13 +21,8 @@ Route::group(['middleware' => ['auth']], function(){
     Route::post('mainTask/{id}', [MainTaskController::class, 'store'])->name('mainTask.store');
     Route::put('mainTask/{id}', [MainTaskController::class, 'update'])->name('mainTask.update');
     Route::delete('mainTask/{id}', [MainTaskController::class, 'delete'])->name('mainTask.delete');
-    // Route::get('mainTask/{id}', [MainTaskController::class, 'show'])->name('mainTask.show');
+    Route::get('finishMainTask/{id}', [MainTaskController::class, 'finishMainTask'])->name('finishMainTask');
 });
-
-// Route::post('mainTask/create/{id}', [MainTaskController::class, 'store'])->name('mainTask.store');
-// Route::get('mainTask/create/{id}', [MainTaskController::class, 'create'])->name('mainTask.create');
-
-
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [

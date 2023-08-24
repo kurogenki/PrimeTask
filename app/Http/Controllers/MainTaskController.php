@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\PriorityRank;
 use App\Enums\TaskStatus;
 use App\Models\MainTask;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -13,12 +15,14 @@ class MainTaskController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $taskStatus = TaskStatus::getValues();
+        $taskStatuses = TaskStatus::getValues();
+        $priorityRanks = PriorityRank::getValues();
 
         return Inertia::render('MainTask/IndexMainTask', [
             'maintasks' => MainTask::all()->where('user_id', $user->id),
             'user' => Auth::user(),
-            'taskStatus' => $taskStatus
+            'taskStatuses' => $taskStatuses,
+            'priorityRanks' => $priorityRanks
         ]);
     }
 
@@ -37,8 +41,12 @@ class MainTaskController extends Controller
         $mainTask = new MainTask;
         $mainTask->user_id = Auth::user()->id;
         $mainTask->title = $request->title;
+        $mainTask->priority_rank = $request->priorityRank;
         $mainTask->purpose = $request->purpose;
         $mainTask->status = $request->status;
+        $mainTask->start_at = $request->startAt;
+        $mainTask->finish_at = $request->finishAt;
+        $mainTask->memo = $request->memo;
         $mainTask->save();
 
         return to_route('mainTask.index');
@@ -53,7 +61,12 @@ class MainTaskController extends Controller
         $mainTask = MainTask::findOrFail($id);
 
         $mainTask->title = $request->title;
-        // $mainTask->memo = $request->memo;
+        $mainTask->priority_rank = $request->priorityRank;
+        $mainTask->purpose = $request->purpose;
+        $mainTask->status = $request->status;
+        $mainTask->start_at = $request->startAt;
+        $mainTask->finish_at = $request->finishAt;
+        $mainTask->memo = $request->memo;
         $mainTask->save();
         return to_route('mainTask.index') ->with([
         'message' => '更新しました。',
@@ -66,5 +79,17 @@ class MainTaskController extends Controller
         $mainTask->delete();
 
         return to_route('mainTask.index')->with(['message' => '削除しました。']);
+    }
+
+    public function finishMainTask($id)
+    {
+        $mainTask = MainTask::findOrFail($id);
+        $mainTask->update([
+            'status' => TaskStatus::COMPLETED,
+            'finish_at' => Carbon::now()
+        ]);
+        $mainTask->save();
+
+        return to_route('mainTask.index')->with(['message' => 'タスクの状態を完了に変更しました。']);
     }
 }

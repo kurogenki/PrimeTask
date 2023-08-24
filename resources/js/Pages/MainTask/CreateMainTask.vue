@@ -3,13 +3,19 @@
     <form @submit.prevent="createMainTask">
     <br>
     タイトル：<input type="text" v-model="form.title">
-    <div v-if="Props.errors.title">{{ Props.errors.title }}</div>
+    <div v-if="props.errors.title">{{ props.errors.title }}</div>
+    <br>
+    優先度：<select v-model="form.priorityRank">
+              <option value=""></option>
+              <option v-for="priorityRank in props.priorityRanks" :key="priorityRank">{{ priorityRank }}</option>
+            </select>
+    <br>
+    目的：<input type="text" v-model="form.purpose">
     <br>
     状態：<select v-model="form.status">
-        <option value=""></option>
-        <option v-for="status in Props.statuses" :key="status">{{ status }}</option>
-    </select>
-    目的：<input type="text" v-model="form.purpose">
+            <option value=""></option>
+            <option v-for="status in props.statuses" :key="status">{{ status }}</option>
+          </select>
     <br>
     開始日：<input type="date" v-model="form.startAt">
     <br>
@@ -34,15 +40,19 @@ import { reactive } from 'vue'
 import { Inertia } from '@inertiajs/inertia'
 import { ref } from 'vue';
 
-const Props = defineProps({
+const props = defineProps({
     user: Object,
     statuses: Array,
+    priorityRanks: Array,
     errors: Object
 })
 
+const emit = defineEmits(['create']);
+
 const form = reactive({
-  id: Props.user.id,
+  id: props.user.id,
   title: null,
+  priorityRank: null,
   purpose: null ,
   status: null,
   startAt: null,
@@ -52,8 +62,6 @@ const form = reactive({
 
 const createMainTask = userId => {
  Inertia.post(`/mainTask/${userId}`, form);
- form.title = null;
- form.purpose = null;
- form.startAt = null;
+ emit('create')
 }
 </script>
