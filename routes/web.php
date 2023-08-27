@@ -6,21 +6,14 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 Route::group(['middleware' => ['auth']], function(){
-    Route::get('mainTask', [MainTaskController::class, 'index'])->name('mainTask.index');
-    Route::post('mainTask/{id}', [MainTaskController::class, 'store'])->name('mainTask.store');
-    Route::put('mainTask/{id}', [MainTaskController::class, 'update'])->name('mainTask.update');
-    Route::delete('mainTask/{id}', [MainTaskController::class, 'delete'])->name('mainTask.delete');
+    Route::resource('mainTask', MainTaskController::class);
+
+    // Route::get('mainTask', [MainTaskController::class, 'index'])->name('mainTask.index');
+    // Route::post('mainTask/{id}', [MainTaskController::class, 'store'])->name('mainTask.store');
+    // Route::put('mainTask/{id}', [MainTaskController::class, 'update'])->name('mainTask.update');
+    // Route::delete('mainTask/{id}', [MainTaskController::class, 'delete'])->name('mainTask.delete');
+
     Route::get('finishMainTask/{id}', [MainTaskController::class, 'finishMainTask'])->name('finishMainTask');
 });
 

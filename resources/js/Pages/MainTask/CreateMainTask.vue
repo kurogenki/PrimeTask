@@ -1,6 +1,7 @@
 <template>
-    新規作成画面
+    <div>メインタスクの作成</div>
     <form @submit.prevent="createMainTask">
+        　　改行
     <br>
     タイトル：<input type="text" v-model="form.title">
     <div v-if="props.errors.title">{{ props.errors.title }}</div>
@@ -60,8 +61,8 @@ const form = reactive({
   memo: null,
 })
 
-const createMainTask = userId => {
- Inertia.post(`/mainTask/${userId}`, form);
+const createMainTask = () => {
+ Inertia.post(`/mainTask`, form);
  emit('create')
 }
 </script>
