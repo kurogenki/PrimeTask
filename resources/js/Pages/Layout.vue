@@ -13,19 +13,19 @@ defineProps({ title: String })
               <Link :href="route('mainTask.index')" class="underline m-2">メインタスク一覧</Link>
             </div> -->
         </header>
-        <div class="h-screen-minus-14 bg-gray-100 px-10">
-          <div class="h-full">
-            <article>
+        <article>
+          <div class="h-screen-minus-14 bg-gray-100 px-10">
             <slot />
-
-          </article>
           </div>
-        </div>
+        </article>
     </main>
 </template>
 <style>
-html, body, main {
-  height: 100%;
-}
+  * {
+    font-family: sans-serif;
+  }
+  html, body, main {
+    height: 100%;
+  }
   .h-screen-minus-14 { height: calc(100vh - 3.5rem);}
 </style>
