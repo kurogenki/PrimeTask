@@ -8,12 +8,6 @@ use Inertia\Inertia;
 
 Route::group(['middleware' => ['auth']], function(){
     Route::resource('mainTask', MainTaskController::class);
-
-    // Route::get('mainTask', [MainTaskController::class, 'index'])->name('mainTask.index');
-    // Route::post('mainTask/{id}', [MainTaskController::class, 'store'])->name('mainTask.store');
-    // Route::put('mainTask/{id}', [MainTaskController::class, 'update'])->name('mainTask.update');
-    // Route::delete('mainTask/{id}', [MainTaskController::class, 'delete'])->name('mainTask.delete');
-
     Route::get('finishMainTask/{id}', [MainTaskController::class, 'finishMainTask'])->name('finishMainTask');
 });
 
