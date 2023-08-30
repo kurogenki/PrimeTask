@@ -7,11 +7,7 @@ defineProps({ title: String })
     <Head :title="title" />
     <main>
         <header class="bg-blue-400 h-14 flex items-center px-10">
-            <h1 class="text-2xl">PrimeTask</h1>
-            <!-- <div class="flex w-auto">
-              <Link href="/" class="underline m-2">Home</Link>
-              <Link :href="route('mainTask.index')" class="underline m-2">メインタスク一覧</Link>
-            </div> -->
+            <h1 class="text-2xl font-bold">PrimeTask</h1>
         </header>
         <article>
           <div class="h-screen-minus-14 bg-gray-100 px-10">

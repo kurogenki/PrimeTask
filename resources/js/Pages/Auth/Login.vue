@@ -34,8 +34,8 @@ const submit = () => {
         </div>
 
         <form @submit.prevent="submit">
-            <div>
-                <InputLabel for="email" value="Email" />
+            <div class="my-2">
+                <InputLabel for="email" value="メールアドレス" />
 
                 <TextInput
                     id="email"
@@ -50,8 +50,8 @@ const submit = () => {
                 <InputError class="mt-2" :message="form.errors.email" />
             </div>
 
-            <div class="mt-4">
-                <InputLabel for="password" value="Password" />
+            <div class="my-8">
+                <InputLabel for="password" value="パスワード" />
 
                 <TextInput
                     id="password"
@@ -65,24 +65,31 @@ const submit = () => {
                 <InputError class="mt-2" :message="form.errors.password" />
             </div>
 
-            <div class="block mt-4">
+            <!-- <div class="block mt-4">
                 <label class="flex items-center">
                     <Checkbox name="remember" v-model:checked="form.remember" />
                     <span class="ml-2 text-sm text-gray-600">Remember me</span>
                 </label>
-            </div>
+            </div> -->
 
-            <div class="flex items-center justify-end mt-4">
                 <Link
+                    :href="route('register')"
+                    class="ml-4 font-solid text-gray-600 hover:text-gray-900 focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"
+                    >ユーザー登録画面はこちら</Link
+                >
+
+            <div class="flex justify-center mt-4">
+                <!-- <Link
                     v-if="canResetPassword"
                     :href="route('password.request')"
                     class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
                     Forgot your password?
-                </Link>
+                </Link> -->
 
-                <PrimaryButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Log in
+                <!-- <button class="inline-flex text-white bg-blue-600 border-0 py-2 px-4 focus:outline-none hover:bg-blue-700 rounded">ログイン</button> -->
+                <PrimaryButton class="bg-blue-600 hover:bg-blue-700 rounded" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                    ログイン
                 </PrimaryButton>
             </div>
         </form>
