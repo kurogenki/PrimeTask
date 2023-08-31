@@ -73,7 +73,7 @@ class MainTaskController extends Controller
         'status' => 'success' ]);
     }
 
-    public function delete($id)
+    public function destroy($id)
     {
         $mainTask = MainTask::findOrFail($id);
         $mainTask->delete();

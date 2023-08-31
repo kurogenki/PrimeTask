@@ -1,54 +1,80 @@
 <template>
-<h1>タスクの詳細画面</h1>
-<div  v-if="isDetailing && !isEditing">
-  <div @click="isEditing = true; isDetailing = false">編集モードへ</div>
-  ID: {{ mainTask.id }}
-  <br>
-  タスク名：{{ mainTask.title }}
-  <br>
-  優先度：{{ mainTask.priorityRank }}
-  <br>
-  目的：{{ mainTask.purpose }}
-  <br>
-  状態：{{ mainTask.status }}
-  <br>
-  開始日：{{ mainTask.startAt }}
-  <br>
-  終了日：{{ mainTask.finishAt }}
-  <br>
-  メモ：{{ mainTask.memo }}
-  <br>
-</div>
+  <div class="w-2/5 h-full overflow-y-scroll">
+    <div class="my-3 p-4 bg-white">
+      <div class="block" v-if="isDetailing && !isEditing">
+        <div class="inline-flex text-white bg-green-600 border-0 py-2 px-4 focus:outline-none hover:bg-green-700 rounded"
+             @click="isEditing = true; isDetailing = false">編集する</div>
+        <h3 class="text-2xl font-bold">{{ mainTask.title }}</h3>
+        <div class="flex">
+          <div class="w-1/2">
+            <div class="my-3">優先度：</div>
+            <div class="my-3">状態：</div>
+            <div class="my-3">開始日：</div>
+            <div class="my-3">終了日：</div>
+          </div>
+          <div class="w-1/2">
+            <div class="my-3">{{ mainTask.priority_rank ? mainTask.priority_rank : '　' }}</div>
+            <div class="my-3">{{ mainTask.status ? mainTask.status : '　' }}</div>
+            <div class="my-3">{{ mainTask.start_at ? mainTask.start_at : '　' }}</div>
+            <div class="my-3">{{ mainTask.finish_at ? mainTask.finish_at : '　' }}</div>
+          </div>
+        </div>
+        <div class="flex justify-center items-center my-3">
+          <p class="w-1/4">目的：</p>
+          <div class="w-3/4 h-20 mx-auto border-2 overflow-y-scroll break-words">{{ mainTask.purpose }}</div>
+        </div>
+        <hr>
+        <div class="my-3">
+          <p class="w-1/4">メモ</p>
+          <div class="h-80 mx-auto border-2 overflow-y-scroll break-words">{{ mainTask.memo }}</div>
+        </div>
+      </div>
 
-<div v-if="isEditing && !isDetailing">
-  <div>編集モード</div>
-  <form @submit.prevent="updateMainTask(form.id);">
-    タイトル：<input type="text" v-model="form.title">
-    <br>
-    優先度：<select v-model="form.priorityRank">
-            <option value=""></option>
-            <option v-for="priorityRank in props.priorityRanks" :key="priorityRank">{{ priorityRank }}</option>
-            </select>
-    <br>
-    目的：<input type="text" v-model="form.purpose">
-    <br>
-    状態：<select v-model="form.status">
-            <option value=""></option>
-            <option v-for="status in props.statuses" :key="status">{{ status }}</option>
-        </select>
-    <br>
-    開始日：<input type="date" v-model="form.startAt">
-    <br>
-    終了日：<input type="date" v-model="form.finishAt">
-    <br>
-    メモ：<textarea type="text" v-model="form.memo"></textarea>
-    <br>
-    <br>
-    <button>更新</button>
-  </form>
-  <div @click="isEditing = false; isDetailing = true">詳細モードへ</div>
-</div>
-    <!-- <Link style="color: blue;" as="button" :href="route('mainTask.index')">メイン画面へ</Link> -->
+      <div v-if="isEditing && !isDetailing">
+        <div class="inline-flex text-white bg-green-600 border-0 py-2 px-4 my-3 focus:outline-none hover:bg-green-700 rounded"
+             @click="isEditing = false; isDetailing = true">詳細を見る</div>
+        <form @submit.prevent="updateMainTask(form.id);">
+          <div class="w-11/12 mx-auto">
+            <p class="font-semibold">タイトル</p>
+            <div class="flex justify-center">
+              <textarea type="text" class="w-4/5 h-28 mx-auto font-semibold border-2" v-model="form.title"></textarea>
+            </div>
+          </div>
+          <div class="my-3">
+            優先度：<select v-model="form.priorityRank">
+                    <option value=""></option>
+                    <option v-for="priorityRank in props.priorityRanks" :key="priorityRank">{{ priorityRank }}</option>
+                    </select>
+          </div>
+          <div class="my-3">
+            状態：<select v-model="form.status">
+                    <option value=""></option>
+                    <option v-for="status in props.statuses" :key="status">{{ status }}</option>
+                  </select>
+          </div>
+          <div class="my-3">
+            開始日：<input type="date" v-model="form.startAt">
+          </div>
+          <div class="my-3">
+            終了日：<input type="date" v-model="form.finishAt">
+          </div>
+          <div class="flex justify-center">
+            <p class="w-12">目的</p>
+            <textarea type="text" v-model="form.purpose"></textarea>
+          </div>
+          <div class="w-11/12 my-3 mx-auto">
+            <p>メモ</p>
+            <div class="flex justify-center">
+              <textarea type="text" v-model="form.memo" class="h-64 border-2"></textarea>
+            </div>
+          </div>
+          <div class="flex justify-center">
+            <button class="inline-flex text-white bg-blue-600 border-0 py-2 px-4 focus:outline-none hover:bg-blue-700 rounded">更新</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script setup>
@@ -63,7 +89,6 @@ const props = defineProps({
 })
 
 const { mainTask } = toRefs(props);
-console.log(mainTask.value);
 
 const emit = defineEmits(['update']);
 
@@ -76,7 +101,7 @@ const form = reactive({
     status: mainTask.value.status,
     startAt: mainTask.value.startAt,
     finishAt: mainTask.value.finishAt,
-    comment: mainTask.value.comment,
+    memo: mainTask.value.memo,
 });
 
 const isDetailing = ref(true);
