@@ -17,10 +17,10 @@ export default defineConfig({
             },
         }),
     ],
-    server: {
-        host: true,
-        hmr: {
-            host: '18.232.135.180'
-        },
-    },
+    // server: {
+    //     host: true,
+    //     hmr: {
+    //         host: 'localhost'
+    //     },
+    // },
 });
