@@ -16,7 +16,6 @@ export default defineConfig({
                 },
             },
         }),
-        require('@vitejs/plugin-vue')()
     ],
     server: {
         host: true,
