@@ -3,7 +3,9 @@
     "scripts": {
         "dev": "vite",
         "build": "vite build",
-        "postinstall": "npm run build"
+        "postinstall": "npm run build",
+        "heroku-prebuild": "echo This runs before Heroku installs your dependencies.",
+        "heroku-postbuild": "echo This runs afterwards."
     },
     "devDependencies": {
         "@inertiajs/inertia": "^0.11.0",
