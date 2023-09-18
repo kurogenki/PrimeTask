@@ -10,7 +10,7 @@ export default defineConfig({
                 'resources/js/app.js',
                 'resources/js/Pages/Welcome.vue',
                 'resources/js/Pages/Auth/Login.vue',
-                'resources/js/Pages/Auth/Resister.vue',
+                'resources/js/Pages/Auth/Register.vue',
                 'resources/js/Pages/MainTask/CreateMainTask.vue',
                 'resources/js/Pages/MainTask/IndexMainTask.vue',
                 'resources/js/Pages/MainTask/ShowMainTask.vue'
