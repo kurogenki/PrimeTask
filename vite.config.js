@@ -13,7 +13,7 @@ export default defineConfig({
                 'resources/js/Pages/Auth/Resister.vue',
                 'resources/js/Pages/MainTask/CreateMainTask.vue',
                 'resources/js/Pages/MainTask/IndexMainTask.vue',
-                'resources/js/Pages/MainTask/ShowMainTask.vue',
+                'resources/js/Pages/MainTask/ShowMainTask.vue'
             ],
             refresh: true,
         }),
