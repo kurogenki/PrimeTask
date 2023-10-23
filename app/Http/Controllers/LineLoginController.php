@@ -12,6 +12,7 @@ class LineLoginController extends Controller
   // Lineログイン画面を表示
     public function lineLogin()
     {
+        // dd(config('services.line.client_id'));
         $state = Str::random(32);
         $nonce  = Str::random(32);
 
@@ -32,7 +33,7 @@ class LineLoginController extends Controller
     // アクセストークン取得
     public function getAccessToken($req)
     {
-
+        dd($req['code']);
       $headers = [ 'Content-Type: application/x-www-form-urlencoded' ];
       $post_data = array(
         'grant_type'    => 'authorization_code',
@@ -54,7 +55,6 @@ class LineLoginController extends Controller
       $res = curl_exec($curl);
       curl_close($curl);
       $json = json_decode($res);
-      dd($json);
       $accessToken = $json->access_token;
 
       return $accessToken;
