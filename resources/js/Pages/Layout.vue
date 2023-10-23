@@ -8,6 +8,8 @@ defineProps({ title: String })
     <main>
         <header class="bg-blue-400 h-14 flex items-center px-10">
             <h1 class="text-2xl font-bold">PrimeTask</h1>
+            <!-- <div href="{{route('linelogin')}}">LINEログイン</div> -->
+            <Link :href="route('linelogin')">LINEにログインする</Link>
         </header>
         <article>
           <div class="h-screen-minus-14 bg-gray-100 px-10">

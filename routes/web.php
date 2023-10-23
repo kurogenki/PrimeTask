@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\MainTaskController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\LineLoginController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -29,5 +30,10 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+// LINEログイン
+// Route::get('/linelogin', 'LineLoginController@lineLogin')->name('linelogin');
+Route::get('/linelogin', [LineLoginController::class, 'lineLogin'])->name('linelogin');
+Route::get('/callback', 'LineLoginController@callback')->name('callback');
 
 require __DIR__.'/auth.php';
