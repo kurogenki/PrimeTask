@@ -21,6 +21,11 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+
+        //RedirectToHttpeは必ず必要。CheckForMaintenanceModeとTrimStringsは必要ではないかも？
+        \App\Http\Middleware\RedirectToHttps::class,
+        // \App\Http\Middleware\CheckForMaintenanceMode::class,
+        // \App\Http\Middleware\TrimStrings::class,
     ];
 
     /**
