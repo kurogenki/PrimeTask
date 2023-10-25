@@ -82,12 +82,17 @@ class LineLoginController extends Controller
       $accessToken = $this->getAccessToken($request);
       $profile = $this->getProfile($accessToken);
 
-      // ログインしてからLINEと連携する
-        $user = Auth::user();
-        $user->provider = 'line';
-        $user->line_id = $profile->userId;
-        return redirect('/dashboard');
-      //
+    // ログインしてからLINEと連携する
+    $user = Auth::user();
+    $user->provider = 'line';
+    $user->line_id = $profile->userId;
+    $user->line_name = $profile->displayName;
+    $user->save();
+
+    // dd($user);
+
+    return redirect('/dashboard');
+    //
 
     //   // ユーザー情報あるか確認
     //   $user=User::where('line_id', $profile->userId)->first();

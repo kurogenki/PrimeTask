@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->string('provider')->nullable()->after('remember_token');
             $table->string('line_id')->nullable()->after('provider');
+            $table->string('line_name')->nullable()->after('line_id');
         });
     }
 
@@ -29,6 +30,7 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('provider');
             $table->dropColumn('line_id');
+            $table->dropColumn('line_name');
         });
     }
 };
