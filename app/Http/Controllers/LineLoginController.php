@@ -81,7 +81,6 @@ class LineLoginController extends Controller
     {
       $accessToken = $this->getAccessToken($request);
       $profile = $this->getProfile($accessToken);
-    //   dd($profile);
 
       // ログインしてからLINEと連携する
         $user = Auth::user();
