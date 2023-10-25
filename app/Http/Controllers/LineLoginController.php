@@ -12,7 +12,6 @@ class LineLoginController extends Controller
   // Lineログイン画面を表示
     public function lineLogin()
     {
-        // dd(config('services.line.client_id'));
         $state = Str::random(32);
         $nonce  = Str::random(32);
 
@@ -33,7 +32,6 @@ class LineLoginController extends Controller
     // アクセストークン取得
     public function getAccessToken($req)
     {
-        dd($req['code']);
       $headers = [ 'Content-Type: application/x-www-form-urlencoded' ];
       $post_data = array(
         'grant_type'    => 'authorization_code',
@@ -63,7 +61,6 @@ class LineLoginController extends Controller
     // プロフィール取得
     public function getProfile($at)
     {
-
       $curl = curl_init();
       curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $at));
       curl_setopt($curl, CURLOPT_URL, 'https://api.line.me/v2/profile');
@@ -84,24 +81,32 @@ class LineLoginController extends Controller
     {
       $accessToken = $this->getAccessToken($request);
       $profile = $this->getProfile($accessToken);
+    //   dd($profile);
 
-      // ユーザー情報あるか確認
-      $user=User::where('line_id', $profile->userId)->first();
-
-      // あったらログイン
-      if($user) {
-        Auth::login($user);
+      // ログインしてからLINEと連携する場合。
+        $user = Auth::user();
+        $user->provider = 'line';
+        $user->line_id = $profile->userId;
         return redirect('/dashboard');
+      //
 
-      // なければ登録してからログイン
-      }else {
-        $user=new User();
-        $user->provider='line';
-        $user->line_id=$profile->userId;
-        $user->name=$profile->displayName;
-        $user->save();
-        Auth::login($user);
-        return redirect('/dashboard');
-      }
+    //   // ユーザー情報あるか確認
+    //   $user=User::where('line_id', $profile->userId)->first();
+
+    //   // あったらログイン
+    //   if($user) {
+    //     Auth::login($user);
+    //     return redirect('maintask');
+
+    //   // なければ登録してからログイン
+    //   }else {
+    //     $user=new User();
+    //     $user->provider='line';
+    //     $user->line_id=$profile->userId;
+    //     $user->name=$profile->displayName;
+    //     $user->save();
+    //     Auth::login($user);
+    //     return redirect('/dashboard');
+    //   }
     }
 }

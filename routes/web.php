@@ -35,6 +35,6 @@ Route::middleware('auth')->group(function () {
 // Route::get('/linelogin', 'LineLoginController@lineLogin')->name('linelogin');
 // Route::get('/callback', 'LineLoginController@callback')->name('callback');
 Route::get('/linelogin', [LineLoginController::class, 'lineLogin'])->name('linelogin');
-Route::get('/callback', [LineLoginController::class, 'callback'])->name('linelogin');
+Route::get('/callback', [LineLoginController::class, 'callback'])->name('callback');
 
 require __DIR__.'/auth.php';
