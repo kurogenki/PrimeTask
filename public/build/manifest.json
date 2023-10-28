@@ -1,19 +1,153 @@
 {
+  "TextInput.css": {
+    "file": "assets/TextInput-86d9d1ae.css",
+    "src": "resources/js/Pages/MainTask/CreateMainTask.css"
+  },
+  "_TextInput-7595231f.js": {
+    "css": [
+      "assets/TextInput-86d9d1ae.css"
+    ],
+    "file": "assets/TextInput-7595231f.js",
+    "imports": [
+      "_index-3dcbba6c.js",
+      "_index.esm-8f1e4ad1.js",
+      "_runtime-dom.esm-bundler-581872e9.js"
+    ]
+  },
+  "_index-3dcbba6c.js": {
+    "file": "assets/index-3dcbba6c.js"
+  },
+  "_index-f9f048a8.js": {
+    "file": "assets/index-f9f048a8.js",
+    "imports": [
+      "_index-3dcbba6c.js",
+      "_runtime-dom.esm-bundler-581872e9.js"
+    ]
+  },
+  "_index.esm-8f1e4ad1.js": {
+    "file": "assets/index.esm-8f1e4ad1.js",
+    "imports": [
+      "_index-3dcbba6c.js"
+    ]
+  },
+  "_runtime-dom.esm-bundler-581872e9.js": {
+    "file": "assets/runtime-dom.esm-bundler-581872e9.js",
+    "imports": [
+      "_index-3dcbba6c.js"
+    ]
+  },
   "resources/css/app.css": {
     "file": "assets/app-a3bab8f1.css",
     "isEntry": true,
     "src": "resources/css/app.css"
   },
+  "resources/js/Pages/Auth/Login.vue": {
+    "file": "assets/Login-7885ee01.js",
+    "imports": [
+      "_runtime-dom.esm-bundler-581872e9.js",
+      "_TextInput-7595231f.js",
+      "_index.esm-8f1e4ad1.js",
+      "_index-3dcbba6c.js"
+    ],
+    "isEntry": true,
+    "src": "resources/js/Pages/Auth/Login.vue"
+  },
+  "resources/js/Pages/Auth/Register.vue": {
+    "file": "assets/Register-01066777.js",
+    "imports": [
+      "_runtime-dom.esm-bundler-581872e9.js",
+      "_TextInput-7595231f.js",
+      "_index.esm-8f1e4ad1.js",
+      "_index-3dcbba6c.js"
+    ],
+    "isEntry": true,
+    "src": "resources/js/Pages/Auth/Register.vue"
+  },
+  "resources/js/Pages/MainTask/CreateMainTask.css": {
+    "file": "assets/TextInput-86d9d1ae.css",
+    "src": "resources/js/Pages/MainTask/CreateMainTask.css"
+  },
+  "resources/js/Pages/MainTask/CreateMainTask.vue": {
+    "css": [
+      "assets/TextInput-86d9d1ae.css"
+    ],
+    "file": "assets/CreateMainTask-2b38a1f9.js",
+    "imports": [
+      "_runtime-dom.esm-bundler-581872e9.js",
+      "_index-f9f048a8.js",
+      "_index-3dcbba6c.js"
+    ],
+    "isEntry": true,
+    "src": "resources/js/Pages/MainTask/CreateMainTask.vue"
+  },
+  "resources/js/Pages/MainTask/IndexMainTask.css": {
+    "file": "assets/TextInput-86d9d1ae.css",
+    "src": "resources/js/Pages/MainTask/CreateMainTask.css"
+  },
+  "resources/js/Pages/MainTask/IndexMainTask.vue": {
+    "css": [
+      "assets/TextInput-86d9d1ae.css"
+    ],
+    "file": "assets/IndexMainTask-5748d937.js",
+    "imports": [
+      "_runtime-dom.esm-bundler-581872e9.js",
+      "_index-f9f048a8.js",
+      "resources/js/Pages/MainTask/ShowMainTask.vue",
+      "resources/js/Pages/MainTask/CreateMainTask.vue",
+      "_index-3dcbba6c.js"
+    ],
+    "isEntry": true,
+    "src": "resources/js/Pages/MainTask/IndexMainTask.vue"
+  },
+  "resources/js/Pages/MainTask/ShowMainTask.vue": {
+    "file": "assets/ShowMainTask-906b24b1.js",
+    "imports": [
+      "_runtime-dom.esm-bundler-581872e9.js",
+      "_index-f9f048a8.js",
+      "_index-3dcbba6c.js"
+    ],
+    "isEntry": true,
+    "src": "resources/js/Pages/MainTask/ShowMainTask.vue"
+  },
+  "resources/js/Pages/Welcome.css": {
+    "file": "assets/Welcome-665689a9.css",
+    "src": "resources/js/Pages/Welcome.css"
+  },
+  "resources/js/Pages/Welcome.vue": {
+    "css": [
+      "assets/Welcome-665689a9.css"
+    ],
+    "file": "assets/Welcome-ef5c59c4.js",
+    "imports": [
+      "_index.esm-8f1e4ad1.js",
+      "_index-3dcbba6c.js"
+    ],
+    "isEntry": true,
+    "src": "resources/js/Pages/Welcome.vue"
+  },
   "resources/js/app.css": {
-    "file": "assets/app-08522cc4.css",
+    "file": "assets/app-9e2a24fe.css",
     "src": "resources/js/app.css"
   },
   "resources/js/app.js": {
     "css": [
-      "assets/app-08522cc4.css",
+      "assets/app-9e2a24fe.css",
       "assets/app-a3bab8f1.css"
     ],
-    "file": "assets/app-86b5e435.js",
+    "file": "assets/app-36570b9d.js",
+    "imports": [
+      "_runtime-dom.esm-bundler-581872e9.js",
+      "_TextInput-7595231f.js",
+      "_index.esm-8f1e4ad1.js",
+      "_index-3dcbba6c.js",
+      "resources/js/Pages/Auth/Login.vue",
+      "resources/js/Pages/Auth/Register.vue",
+      "resources/js/Pages/MainTask/CreateMainTask.vue",
+      "resources/js/Pages/MainTask/IndexMainTask.vue",
+      "resources/js/Pages/MainTask/ShowMainTask.vue",
+      "resources/js/Pages/Welcome.vue",
+      "_index-f9f048a8.js"
+    ],
     "isEntry": true,
     "src": "resources/js/app.js"
   }

@@ -3,6 +3,7 @@
 use App\Http\Controllers\MainTaskController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\LineLoginController;
+use App\Http\Controllers\LineMessengerController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -32,9 +33,13 @@ Route::middleware('auth')->group(function () {
 });
 
 // LINEログイン
-// Route::get('/linelogin', 'LineLoginController@lineLogin')->name('linelogin');
-// Route::get('/callback', 'LineLoginController@callback')->name('callback');
 Route::get('/linelogin', [LineLoginController::class, 'lineLogin'])->name('linelogin');
 Route::get('/callback', [LineLoginController::class, 'callback'])->name('callback');
+
+// LINE メッセージ受信
+Route::post('/line/webhook', [LineMessengerController::class, 'webhook'])->name('line.webhook');
+
+// LINE メッセージ送信用
+Route::get('/line/message', [LineMessengerController::class, 'message']);
 
 require __DIR__.'/auth.php';
