@@ -32,6 +32,7 @@ class LineLoginController extends Controller
     // アクセストークン取得
     public function getAccessToken($req)
     {
+        dd(config('services.line.redirect'));
       $headers = [ 'Content-Type: application/x-www-form-urlencoded' ];
       $post_data = array(
         'grant_type'    => 'authorization_code',
@@ -79,9 +80,7 @@ class LineLoginController extends Controller
     // ログイン後のページ表示
     public function callback(Request $request)
     {
-        dd($request);
         $accessToken = $this->getAccessToken($request);
-
         $profile = $this->getProfile($accessToken);
 
         // ユーザー情報あるか確認
