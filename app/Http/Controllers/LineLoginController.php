@@ -79,8 +79,8 @@ class LineLoginController extends Controller
     // ログイン後のページ表示
     public function callback(Request $request)
     {
-        dd($request->all());
         $accessToken = $this->getAccessToken($request);
+        dd($request->all());
 
         $profile = $this->getProfile($accessToken);
 
