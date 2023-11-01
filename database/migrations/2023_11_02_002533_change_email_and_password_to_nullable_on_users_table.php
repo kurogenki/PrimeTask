@@ -14,9 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('provider')->nullable()->after('remember_token');
-            $table->string('line_id')->unique()->after('provider');
-            $table->string('line_name')->nullable()->after('line_id');
+            $table->string('email')->nullable()->change();
+            $table->string('password')->nullable()->change();
         });
     }
 
@@ -28,9 +27,8 @@ return new class extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('provider');
-            $table->dropColumn('line_id');
-            $table->dropColumn('line_name');
+            $table->string('email')->change();
+            $table->string('password')->change();
         });
     }
 };

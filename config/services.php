@@ -32,7 +32,7 @@ return [
     ],
 
     'line' => [
-        //LINEへの連携用
+        //LINEへのログイン用
         'client_id'=>env('LINE_CHANNEL_ID'),
         'client_secret' =>env('LINE_CHANNEL_SECRET'),
         'redirect'=>env('LINE_REDIRECT'),
