@@ -80,8 +80,8 @@ class LineLoginController extends Controller
     public function callback(Request $request)
     {
         $accessToken = $this->getAccessToken($request);
-        dd($accessToken);
 
+        dd($accessToken);
         $profile = $this->getProfile($accessToken);
 
         // ユーザー情報あるか確認
