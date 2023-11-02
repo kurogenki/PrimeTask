@@ -1,6 +1,17 @@
 <script setup>
 import { Link, Head } from '@inertiajs/vue3'
-defineProps({ title: String })
+import { toRefs } from 'vue';
+// defineProps({ title: String })
+
+const props = defineProps({
+    title: String,
+    user: Object,
+})
+
+const {user} = toRefs()
+
+// console.log(props)
+
 </script>
 
 <template>
@@ -8,6 +19,10 @@ defineProps({ title: String })
     <main>
         <header class="bg-blue-400 h-14 flex items-center px-10">
             <h1 class="text-2xl font-bold">PrimeTask</h1>
+            <!-- <div href="{{route('linelogin')}}">LINEログイン</div> -->
+            <Link :href="route('linelogin')">LINEと連携する</Link>
+            <!-- <div>{{ user.line_name }}と連携済み</div> -->
+            <!-- <div>{{ props.user.name }}</div> -->
         </header>
         <article>
           <div class="h-screen-minus-14 bg-gray-100 px-10">
