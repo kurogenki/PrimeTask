@@ -5,13 +5,10 @@ import { toRefs } from 'vue';
 
 const props = defineProps({
     title: String,
-    user: Object,
+    user:Object
 })
 
-const {user} = toRefs()
-
-// console.log(props)
-
+console.log(props.user);
 </script>
 
 <template>
@@ -19,10 +16,8 @@ const {user} = toRefs()
     <main>
         <header class="bg-blue-400 h-14 flex items-center px-10">
             <h1 class="text-2xl font-bold">PrimeTask</h1>
-            <!-- <div href="{{route('linelogin')}}">LINEログイン</div> -->
-            <Link :href="route('linelogin')">LINEと連携する</Link>
-            <!-- <div>{{ user.line_name }}と連携済み</div> -->
-            <!-- <div>{{ props.user.name }}</div> -->
+            <!-- <Link v-if="props.user && !props.user.line_id" class="text-end ml-auto text-gray-200 hover:text-gray-500" :href="route('linelogin')">LINEと連携する</Link>
+            <Link class="text-end ml-auto text-gray-200 hover:text-gray-500" :href="route('linelogin')">LINEと連携する</Link> -->
         </header>
         <article>
           <div class="h-screen-minus-14 bg-gray-100 px-10">

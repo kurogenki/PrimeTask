@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class LineLoginController extends Controller
@@ -79,38 +79,27 @@ class LineLoginController extends Controller
     // ログイン後のページ表示
     public function callback(Request $request)
     {
-      $accessToken = $this->getAccessToken($request);
-      $profile = $this->getProfile($accessToken);
+        $accessToken = $this->getAccessToken($request);
+        $profile = $this->getProfile($accessToken);
 
-    // ログインしてからLINEと連携する
-    $user = Auth::user();
-    $user->provider = 'line';
-    $user->line_id = $profile->userId;
-    $user->line_name = $profile->displayName;
-    $user->save();
+        // ユーザー情報あるか確認
+        $user=User::where('line_id', $profile->userId)->first();
 
-    // dd($user);
+        // あったらログイン
+        if($user) {
+        Auth::login($user);
+        return redirect('mainTask');
 
-    return redirect('/dashboard');
-    //
-
-    //   // ユーザー情報あるか確認
-    //   $user=User::where('line_id', $profile->userId)->first();
-
-    //   // あったらログイン
-    //   if($user) {
-    //     Auth::login($user);
-    //     return redirect('maintask');
-
-    //   // なければ登録してからログイン
-    //   }else {
-    //     $user=new User();
-    //     $user->provider='line';
-    //     $user->line_id=$profile->userId;
-    //     $user->name=$profile->displayName;
-    //     $user->save();
-    //     Auth::login($user);
-    //     return redirect('/dashboard');
-    //   }
+        // なければ登録してからログイン
+        }else {
+        $user=new User();
+        $user->provider='line';
+        $user->line_id=$profile->userId;
+        $user->name=$profile->displayName;
+        $user->save();
+        Auth::login($user);
+        return redirect('mainTask');
+        }
+      return redirect('mainTask');
     }
 }

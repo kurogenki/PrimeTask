@@ -3,27 +3,34 @@
 use App\Http\Controllers\MainTaskController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\LineLoginController;
+use App\Http\Controllers\LineMessengerController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
+use function Termwind\render;
+
 Route::group(['middleware' => ['auth']], function(){
+    Route::get('mainTask', [MainTaskController::class, 'index'])->name('mainTask');
     Route::resource('mainTask', MainTaskController::class);
     Route::get('finishMainTask/{id}', [MainTaskController::class, 'finishMainTask'])->name('finishMainTask');
 });
 
+// Route::get('/', function () {
+//     return Inertia::render('Welcome', [
+//         'canLogin' => Route::has('login'),
+//         'canRegister' => Route::has('register'),
+//         'laravelVersion' => Application::VERSION,
+//         'phpVersion' => PHP_VERSION,
+//     ]);
+// });
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
+    return Inertia::render('Auth/Login');
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return Inertia::render('Dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -32,9 +39,13 @@ Route::middleware('auth')->group(function () {
 });
 
 // LINEログイン
-// Route::get('/linelogin', 'LineLoginController@lineLogin')->name('linelogin');
-// Route::get('/callback', 'LineLoginController@callback')->name('callback');
 Route::get('/linelogin', [LineLoginController::class, 'lineLogin'])->name('linelogin');
 Route::get('/callback', [LineLoginController::class, 'callback'])->name('callback');
+
+// LINE メッセージ受信
+Route::post('/line/webhook', [LineMessengerController::class, 'webhook'])->name('line.webhook');
+
+// LINE メッセージ送信用
+Route::get('/line/message', [LineMessengerController::class, 'message']);
 
 require __DIR__.'/auth.php';
