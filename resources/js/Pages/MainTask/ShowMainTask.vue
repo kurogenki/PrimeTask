@@ -15,8 +15,8 @@
           <div class="w-1/2">
             <div class="my-3">{{ mainTask.priority_rank ? mainTask.priority_rank : '　' }}</div>
             <div class="my-3">{{ mainTask.status ? mainTask.status : '　' }}</div>
-            <div class="my-3">{{ mainTask.start_at ? mainTask.start_at : '　' }}</div>
-            <div class="my-3">{{ mainTask.finish_at ? mainTask.finish_at : '　' }}</div>
+            <div class="my-3">{{ mainTask.start_day ? mainTask.start_day : '　' }}</div>
+            <div class="my-3">{{ mainTask.finish_day ? mainTask.finish_day : '　' }}</div>
           </div>
         </div>
         <div class="flex justify-center items-center my-3">
@@ -30,6 +30,7 @@
         </div>
       </div>
 
+      <!-- 更新用Vue -->
       <div v-if="isEditing && !isDetailing">
         <div class="inline-flex text-white bg-green-600 border-0 py-2 px-4 my-3 focus:outline-none hover:bg-green-700 rounded"
              @click="isEditing = false; isDetailing = true">詳細を見る</div>
@@ -41,9 +42,9 @@
             </div>
           </div>
           <div class="my-3">
-            優先度：<select v-model="form.priorityRank">
-                    <option value=""></option>
-                    <option v-for="priorityRank in props.priorityRanks" :key="priorityRank">{{ priorityRank }}</option>
+            優先度：<select v-model="form.priority_rank">
+                        <option value=""></option>
+                        <option v-for="priorityRank in props.priorityRanks" :key="priorityRank">{{ priorityRank }}</option>
                     </select>
           </div>
           <div class="my-3">
@@ -53,10 +54,10 @@
                   </select>
           </div>
           <div class="my-3">
-            開始日：<input type="date" v-model="form.startAt">
+            開始日：<input type="date" v-model="form.start_day">
           </div>
           <div class="my-3">
-            終了日：<input type="date" v-model="form.finishAt">
+            終了日：<input type="date" v-model="form.finish_day">
           </div>
           <div class="flex justify-center">
             <p class="w-12">目的</p>
@@ -89,6 +90,7 @@ const props = defineProps({
 })
 
 const { mainTask } = toRefs(props);
+console.log(mainTask.value);
 
 const emit = defineEmits(['update']);
 
@@ -96,11 +98,11 @@ const emit = defineEmits(['update']);
 const form = reactive({
     id: mainTask.value.id,
     title: mainTask.value.title,
-    priorityRank: mainTask.value.priorityRank,
+    priority_rank: mainTask.value.priority_rank,
     purpose: mainTask.value.purpose,
     status: mainTask.value.status,
-    startAt: mainTask.value.startAt,
-    finishAt: mainTask.value.finishAt,
+    start_day: mainTask.value.start_day,
+    finish_day: mainTask.value.finish_day,
     memo: mainTask.value.memo,
 });
 
@@ -110,11 +112,11 @@ const isEditing = ref(false);
 watch(mainTask, () => {
     form.id = props.mainTask.id
     form.title = props.mainTask.title
-    form.priorityRank = props.mainTask.priorityRank,
+    form.priority_rank = props.mainTask.priority_rank,
     form.purpose = props.mainTask.purpose,
     form.status = props.mainTask.status,
-    form.startAt = props.mainTask.startAt,
-    form.finishAt = props.mainTask.finishAt,
+    form.start_day = props.mainTask.start_day,
+    form.finish_day = props.mainTask.finish_day,
     form.comment = props.mainTask.comment,
 
     isDetailing.value = true;

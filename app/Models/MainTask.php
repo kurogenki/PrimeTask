@@ -9,7 +9,7 @@ class MainTask extends Model
 {
     protected $table = 'maintasks';
 
-    protected $fillable = ['status', 'finish_at'];
+    protected $fillable = ['status', 'finish_day'];
 
     use HasFactory;
 

@@ -41,11 +41,11 @@ class MainTaskController extends Controller
         $mainTask = new MainTask;
         $mainTask->user_id = Auth::user()->id;
         $mainTask->title = $request->title;
-        $mainTask->priority_rank = $request->priorityRank;
+        $mainTask->priority_rank = $request->priority_rank;
         $mainTask->purpose = $request->purpose;
         $mainTask->status = $request->status;
-        $mainTask->start_at = $request->startAt;
-        $mainTask->finish_at = $request->finishAt;
+        $mainTask->start_day = $request->start_day;
+        $mainTask->finish_day = $request->finish_day;
         $mainTask->memo = $request->memo;
         $mainTask->save();
 
@@ -61,11 +61,11 @@ class MainTaskController extends Controller
         $mainTask = MainTask::findOrFail($id);
 
         $mainTask->title = $request->title;
-        $mainTask->priority_rank = $request->priorityRank;
+        $mainTask->priority_rank = $request->priority_rank;
         $mainTask->purpose = $request->purpose;
         $mainTask->status = $request->status;
-        $mainTask->start_at = $request->startAt;
-        $mainTask->finish_at = $request->finishAt;
+        $mainTask->start_day = $request->start_day;
+        $mainTask->finish_day = $request->finish_day;
         $mainTask->memo = $request->memo;
         $mainTask->save();
         return to_route('mainTask.index') ->with([
@@ -86,7 +86,7 @@ class MainTaskController extends Controller
         $mainTask = MainTask::findOrFail($id);
         $mainTask->update([
             'status' => TaskStatus::COMPLETED,
-            'finish_at' => Carbon::now()
+            'finish_day' => Carbon::now()
         ]);
         $mainTask->save();
 

@@ -11,7 +11,7 @@
         </div>
         <div v-if="props.errors.title">{{ props.errors.title }}</div>
         <div class="my-3">
-          優先度：<select v-model="form.priorityRank">
+          優先度：<select v-model="form.priority_rank">
                     <option value=""></option>
                     <option v-for="priorityRank in props.priorityRanks" :key="priorityRank">{{ priorityRank }}</option>
                   </select>
@@ -23,10 +23,10 @@
                 </select>
         </div>
         <div class="my-3">
-          開始日：<input type="date" v-model="form.startAt">
+          開始日：<input type="date" v-model="form.start_day">
         </div>
         <div class="my-3">
-          終了日：<input type="date" v-model="form.finishAt">
+          終了日：<input type="date" v-model="form.finish_day">
         </div>
         <div class="flex justify-center">
           <p class="w-12">目的</p>
@@ -63,11 +63,11 @@ const emit = defineEmits(['create']);
 const form = reactive({
   id: props.user.id,
   title: null,
-  priorityRank: null,
+  priority_rank: null,
   purpose: null ,
   status: null,
-  startAt: null,
-  finishAt: null,
+  start_day: null,
+  finish_day: null,
   memo: null,
 })
 

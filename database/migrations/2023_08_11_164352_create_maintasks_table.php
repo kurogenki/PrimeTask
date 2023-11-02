@@ -24,8 +24,8 @@ return new class extends Migration
             $table->string('priority_rank')->nullable();
             $table->string('purpose')->nullable();
             $table->string('status')->nullable();
-            $table->dateTime('start_at')->nullable();
-            $table->dateTime('finish_at')->nullable();
+            $table->date('start_day')->nullable();
+            $table->date('finish_day')->nullable();
             $table->text('comment')->nullable();
             $table->timestamps();
         });
