@@ -4,7 +4,7 @@
       <form @submit.prevent="createMainTask">
         <div class="mt-4">
           <div class="border-b-2">
-            <input type="text" class="text-2xl font-bold border-0 focus:ring-0" v-model="form.title" placeholder="タスクのタイトルを書く" required>
+            <input type="text" class="w-full text-2xl font-bold border-0 focus:ring-0" v-model="form.title" placeholder="タスクのタイトルを書く" required>
           </div>
         </div>
         <div v-if="props.errors.title" class="my-2 text-red-600">{{ props.errors.title }}</div>

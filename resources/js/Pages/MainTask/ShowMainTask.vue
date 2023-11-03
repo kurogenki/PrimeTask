@@ -38,7 +38,7 @@
         </div>
         <form @submit.prevent="updateMainTask(form.id);">
           <div class="border-b-2">
-            <input type="text" class="text-2xl font-bold border-0 focus:ring-0" v-model="form.title" required>
+            <input type="text" class="w-full text-2xl font-bold border-0 focus:ring-0" v-model="form.title" required>
           </div>
           <div class="my-4">
             <label>優先度：</label>
