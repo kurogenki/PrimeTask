@@ -19,7 +19,9 @@ class MainTaskController extends Controller
         $priorityRanks = PriorityRank::getValues();
 
         return Inertia::render('MainTask/IndexMainTask', [
-            'maintasks' => MainTask::all()->where('user_id', $user->id),
+            'maintasks' => MainTask::where('user_id', $user->id)
+                    ->orderByRaw("FIELD(status, '".TaskStatus::NOT_STARTED."', '".TaskStatus::WORKING."', '".TaskStatus::COMPLETED."')")
+                    ->get(),
             'user' => Auth::user(),
             'taskStatuses' => $taskStatuses,
             'priorityRanks' => $priorityRanks
@@ -35,7 +37,7 @@ class MainTaskController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => ['required', 'max:20']
+            'title' => ['required']
         ]);
 
         $mainTask = new MainTask;
@@ -43,7 +45,7 @@ class MainTaskController extends Controller
         $mainTask->title = $request->title;
         $mainTask->priority_rank = $request->priority_rank;
         $mainTask->purpose = $request->purpose;
-        $mainTask->status = $request->status;
+        $mainTask->status = $request->status ?? TaskStatus::NOT_STARTED;
         $mainTask->start_day = $request->start_day;
         $mainTask->finish_day = $request->finish_day;
         $mainTask->memo = $request->memo;
@@ -63,7 +65,7 @@ class MainTaskController extends Controller
         $mainTask->title = $request->title;
         $mainTask->priority_rank = $request->priority_rank;
         $mainTask->purpose = $request->purpose;
-        $mainTask->status = $request->status;
+        $mainTask->status = $request->status ?? TaskStatus::NOT_STARTED;
         $mainTask->start_day = $request->start_day;
         $mainTask->finish_day = $request->finish_day;
         $mainTask->memo = $request->memo;

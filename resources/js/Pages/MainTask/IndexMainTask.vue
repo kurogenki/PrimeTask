@@ -10,9 +10,9 @@
         <button v-if="!isCompleted" class="mx-3 bg-red-300" @click="isNotStarted = true, addSelectedStatus()">未着手を表示</button>
         <button v-if="isCompleted" class="mx-3 bg-white" @click="isNotStarted = false; addSelectedStatus()">未着手を非表示</button> -->
 
-          <h1 class="text-3xl font-extrabold">現在のタスク一覧</h1>
+          <h1 class="mx-4 my-2 text-3xl font-extrabold">現在のタスク一覧</h1>
 
-          <div class="m-4 py-3 bg-white border-2 rounded flex justify-center hover:bg-blue-500 rounded cursor-pointer"
+          <div class="m-4 py-3 text-blue-600 font-semibold bg-white border-2 rounded flex justify-center hover:bg-gray-100 rounded cursor-pointer"
                @click="createMainTask(props.user)">
             <div>メインタスクを追加する</div>
           </div>
@@ -21,23 +21,35 @@
               <div class='flex m-4 bg-white border-2 rounded cursor-pointer hover:bg-slate-100' @click="showMainTask(maintask); showMode = true">
                 <div class="flex flex-col justify-center items-center w-2/12 mx-6">
                   <!-- タスクのステータスの状態によるラベル -->
-                  <span v-if="maintask.status === '完了'" class="flex justify-center w-full my-1 bg-blue-500">完了</span>
-                  <span v-else-if="maintask.status === '着手中'" class="flex justify-center w-full my-1 bg-green-500">着手中</span>
-                  <span v-else-if="maintask.status === '未着手'" class="flex justify-center w-full my-1 bg-red-500">未着手</span>
+                  <span v-if="maintask.status === '完了'" class="flex justify-center w-full my-1 bg-green-100">完了</span>
+                  <span v-else-if="maintask.status === '着手中'" class="flex justify-center w-full my-1 bg-red-100">着手中</span>
+                  <span v-else-if="maintask.status === '未着手'" class="flex justify-center w-full my-1 bg-blue-100">未着手</span>
                   <!-- <button @click.stop="finishMainTask(maintask.id)">完了ボタン</button> -->
                   <input type="checkbox" class="my-1" @click.stop="finishMainTask(maintask.id)">
-                  <button class="inline-flex items-center justify-center text-white my-1 py-1 px-2 bg-red-600 border-0focus:outline-none hover:bg-red-700 rounded"
+                  <button class="inline-flex items-center justify-center text-white my-1 py-1 px-2 bg-gray-600 border-0focus:outline-none hover:bg-red-700 rounded"
                   @click.stop="deleteTask(maintask.id)">削除</button>
                 </div>
 
-                <p class="w-9/12 font-semibold">タイトル：{{ maintask.title }}</p>
+                <p class="mt-8 w-9/12 font-semibold">{{ maintask.title }}</p>
               </div>
             </div>
         </div>
 
       </div>
-    <CreateMainTask v-if="creatingMode && !showMode" :user="editingUser" :statuses="props.taskStatuses" :priorityRanks ='props.priorityRanks'  :errors="props.errors" @create="creatingMode = false"></CreateMainTask>
-    <ShowMainTask v-if="showMode && !creatingMode" :statuses="props.taskStatuses" :priorityRanks ='props.priorityRanks' :mainTask = editingMainTask @update="showMainTask"></ShowMainTask>
+
+    <CreateMainTask v-if="creatingMode && !showMode"
+                    :user="editingUser"
+                    :statuses="props.taskStatuses"
+                    :priorityRanks ='props.priorityRanks'
+                    :errors="props.errors"
+                    @create="creatingMode = false">
+    </CreateMainTask>
+    <ShowMainTask v-if="showMode && !creatingMode"
+                    :statuses="props.taskStatuses"
+                    :priorityRanks ='props.priorityRanks'
+                    :mainTask = editingMainTask
+                    @update="showMainTask">
+    </ShowMainTask>
   </div>
 </template>
 <script setup>

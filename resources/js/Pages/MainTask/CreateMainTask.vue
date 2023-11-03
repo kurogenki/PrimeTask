@@ -1,43 +1,39 @@
 <template>
   <div class="w-2/5 h-screen-minus-14 overflow-y-scroll">
     <div class="my-3 p-4 bg-white">
-      <div class="text-3xl font-extrabold">メインタスクの作成</div>
       <form @submit.prevent="createMainTask">
-        <div class="w-11/12 mx-auto my-3">
-          <p class="font-semibold">タイトル</p>
-          <div class="flex justify-center">
-            <textarea type="text" class="w-4/5 h-28 mx-auto font-semibold border-2" v-model="form.title"></textarea>
+        <div class="mt-4">
+          <div class="border-b-2">
+            <input type="text" class="text-2xl font-bold border-0 focus:ring-0" v-model="form.title" placeholder="タスクのタイトルを書く" required>
           </div>
         </div>
-        <div v-if="props.errors.title">{{ props.errors.title }}</div>
-        <div class="my-3">
-          優先度：<select v-model="form.priority_rank">
-                    <option value=""></option>
-                    <option v-for="priorityRank in props.priorityRanks" :key="priorityRank">{{ priorityRank }}</option>
-                  </select>
+        <div v-if="props.errors.title" class="my-2 text-red-600">{{ props.errors.title }}</div>
+        <div class="my-4">
+          <label>優先度：</label>
+          <select class="border-2 ml-1" v-model="form.priority_rank">
+            <option value=""></option>
+            <option v-for="priorityRank in props.priorityRanks" :key="priorityRank">{{ priorityRank }}</option>
+          </select>
         </div>
-        <div class="my-3">
-          状態：<select v-model="form.status">
-                  <option value=""></option>
-                  <option v-for="status in props.statuses" :key="status">{{ status }}</option>
-                </select>
+        <div class="my-4">
+          <label class="ml-2">状態：</label>
+          <select class="border-2 ml-1" v-model="form.status">
+            <option v-for="status in props.statuses" :key="status">{{ status }}</option>
+          </select>
         </div>
-        <div class="my-3">
-          開始日：<input type="date" v-model="form.start_day">
+        <div class="my-4">
+          <label>開始日：</label>
+          <input type="date" class="border-2 ml-1" v-model="form.start_day">
         </div>
-        <div class="my-3">
-          終了日：<input type="date" v-model="form.finish_day">
+        <div class="my-4">
+          <label>終了日：</label>
+          <input type="date" class="border-2 ml-1" v-model="form.finish_day">
         </div>
-        <div class="flex justify-center">
-          <p class="w-12">目的</p>
-          <textarea type="text" v-model="form.purpose"></textarea>
-        </div>
-        <div class="w-11/12 my-3 mx-auto">
-          <p>メモ</p>
-          <div class="flex justify-center">
-            <textarea type="text"  class="h-64 border-2" v-model="form.memo"></textarea>
-          </div>
-        </div>
+        <p class="mt-5 mb-1">目的</p>
+        <textarea class="mb-5 border-2" v-model="form.purpose" placeholder="目的を書く" cols="42" rows="4"></textarea>
+        <hr>
+        <p class="mt-5 mb-1">メモ</p>
+        <textarea class="mb-5 border-2" v-model="form.memo" placeholder="メモを書く" cols="42" rows="10"></textarea>
         <div class="flex justify-center my-2">
           <button class="inline-flex text-white bg-blue-600 border-0 py-2 px-4 focus:outline-none hover:bg-blue-700 rounded">保存</button>
         </div>

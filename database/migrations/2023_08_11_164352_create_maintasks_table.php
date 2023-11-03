@@ -20,10 +20,10 @@ return new class extends Migration
                   ->constrained('users')
                   ->onDelete('cascade');
 
-            $table->string('title')->nullable();
+            $table->string('title');
             $table->string('priority_rank')->nullable();
             $table->string('purpose')->nullable();
-            $table->string('status')->nullable();
+            $table->string('status');
             $table->date('start_day')->nullable();
             $table->date('finish_day')->nullable();
             $table->text('comment')->nullable();
