@@ -62,10 +62,10 @@
             <input type="date" class="border-2 ml-1" v-model="form.finish_day">
           </div>
           <p class="mt-5 mb-1">目的</p>
-          <textarea class="mb-5 border-2" v-model="form.purpose" placeholder="目的を書く" cols="42" rows="4"></textarea>
+          <textarea class="w-full mb-5 border-2" v-model="form.purpose" placeholder="目的を書く" cols="42" rows="4"></textarea>
           <hr>
           <p class="mt-5 mb-1">メモ</p>
-          <textarea class="mb-5 border-2" v-model="form.memo" placeholder="メモを書く" cols="42" rows="10"></textarea>
+          <textarea class="w-full mb-5 border-2" v-model="form.memo" placeholder="メモを書く" cols="42" rows="10"></textarea>
           <div class="flex justify-center">
             <button class="inline-flex text-white bg-blue-600 border-0 py-2 px-4 focus:outline-none hover:bg-blue-700 rounded">更新</button>
           </div>

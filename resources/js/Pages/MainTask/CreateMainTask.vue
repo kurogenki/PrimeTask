@@ -1,7 +1,7 @@
 <template>
   <div class="w-2/5 h-screen-minus-14 overflow-y-scroll">
     <div class="my-3 p-4 bg-white">
-      <form @submit.prevent="createMainTask">
+      <form @submit.prevent="createMainTask" class="mx-4">
         <div class="mt-4">
           <div class="border-b-2">
             <input type="text" class="w-full text-2xl font-bold border-0 focus:ring-0" v-model="form.title" placeholder="タスクのタイトルを書く" required>
@@ -30,10 +30,10 @@
           <input type="date" class="border-2 ml-1" v-model="form.finish_day">
         </div>
         <p class="mt-5 mb-1">目的</p>
-        <textarea class="mb-5 border-2" v-model="form.purpose" placeholder="目的を書く" cols="42" rows="4"></textarea>
+        <textarea class="w-full mb-5 border-2" v-model="form.purpose" placeholder="目的を書く" cols="42" rows="4"></textarea>
         <hr>
         <p class="mt-5 mb-1">メモ</p>
-        <textarea class="mb-5 border-2" v-model="form.memo" placeholder="メモを書く" cols="42" rows="10"></textarea>
+        <textarea class="w-full mb-5 border-2" v-model="form.memo" placeholder="メモを書く" cols="42" rows="10"></textarea>
         <div class="flex justify-center my-2">
           <button class="inline-flex text-white bg-blue-600 border-0 py-2 px-4 focus:outline-none hover:bg-blue-700 rounded">保存</button>
         </div>

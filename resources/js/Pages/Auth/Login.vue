@@ -93,7 +93,7 @@ const submit = () => {
                 </PrimaryButton>
             </div> -->
             <div class="flex justify-center">
-              <Link class=" text-gray-500 hover:text-gray-600" :href="route('linelogin')">LINEでログインする</Link>
+              <Link class="flex justify-center w-full py-3 bg-green-500 text-white hover:bg-green-600" :href="route('linelogin')">LINEで登録・ログイン</Link>
             </div>
         </form>
     </GuestLayout>
