@@ -15,6 +15,7 @@ class MainTaskController extends Controller
     public function index()
     {
         $user = Auth::user();
+dd($user);
         $taskStatuses = TaskStatus::getValues();
         $priorityRanks = PriorityRank::getValues();
 
