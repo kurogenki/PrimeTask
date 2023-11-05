@@ -42,7 +42,13 @@ class LineMessengerController extends Controller
 
             // LINEとの連携をしていないユーザーのメッセージに対してはエラーメッセージを送信。
             if($user==NULL) {
-                $message = new TextMessage(['type' => 'text','text' => 'LINEと連携しているアカウントが見つかりませんでした。PrimeTaskにログインして、LINEアカウントとの連携を行うことでLINEからのタスク登録が行えるようになります。']);
+                $message = new TextMessage(['type' => 'text','text' => 'LINEと連携しているアカウントが見つかりませんでした。PrimeTaskにログインして、LINEアカウントとの連携を行うことでLINEからのタスク登録が行えるようになります。'.
+                "\n".
+                "\n".
+                '▼PrimeTask'.
+                "\n".
+                'https://primetask-a3cf57557e78.herokuapp.com/'
+            ]);
                 $request = new ReplyMessageRequest([
                     'replyToken' => $reply_token,
                     'messages' => [$message],
@@ -71,7 +77,12 @@ class LineMessengerController extends Controller
 
                 // ユーザーのタスク一覧をメッセージ送信として送信。
                 $textMessage = new TextMessage(['type' => 'text','text' => $messages .
-                '以上が「未着手」及び、「着手中」のタスクとして登録されています。'
+                '以上が「未着手」及び、「着手中」のタスクとして登録されています。'.
+                "\n".
+                "\n".
+                '▼PrimeTask'.
+                "\n".
+                'https://primetask-a3cf57557e78.herokuapp.com/'
                 ]);
 
                 $request = new ReplyMessageRequest([
@@ -92,7 +103,12 @@ class LineMessengerController extends Controller
 
             $message = new TextMessage(['type' => 'text','text' => '「'.$text_message.'」'.'をタスクとして新しく作成しました。' . "\n" .
             "\n".
-            'タスクを確認する場合は「かくにん」または「確認」と送信することで、現在「未着手」及び「着手中」のステータスのタスクを確認することができます。'
+            'タスクを確認する場合は「かくにん」または「確認」と送信することで、現在「未着手」及び「着手中」のステータスのタスクを確認することができます。'.
+            "\n".
+            "\n".
+            '▼PrimeTask'.
+            "\n".
+            'https://primetask-a3cf57557e78.herokuapp.com/'
             ]);
             $request = new ReplyMessageRequest([
                 'replyToken' => $reply_token,

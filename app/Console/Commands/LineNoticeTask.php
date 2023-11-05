@@ -70,7 +70,12 @@ class LineNoticeTask extends Command
 
             // メッセージ送信
             $textMessage = new TextMessage(['type' => 'text','text' => $messages .
-            '以上が「未着手」及び、「着手中」のタスクとして登録されています。'
+            '以上が「未着手」及び、「着手中」のタスクとして登録されています。'.
+            "\n".
+            "\n".
+            '▼PrimeTask'.
+            "\n".
+            'https://primetask-a3cf57557e78.herokuapp.com/'
             ]);
 
             $data = [
