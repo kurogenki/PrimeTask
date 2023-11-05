@@ -15,13 +15,13 @@ class MainTaskController extends Controller
     public function index()
     {
         $user = Auth::user();
-dd($user);
         $taskStatuses = TaskStatus::getValues();
         $priorityRanks = PriorityRank::getValues();
 
         return Inertia::render('MainTask/IndexMainTask', [
             'maintasks' => MainTask::where('user_id', $user->id)
-                    ->orderByRaw("FIELD(status, '".TaskStatus::NOT_STARTED."', '".TaskStatus::WORKING."', '".TaskStatus::COMPLETED."')")
+                    // ->orderByRaw("FIELD(status, '".TaskStatus::NOT_STARTED."', '".TaskStatus::WORKING."', '".TaskStatus::COMPLETED."')")
+                    ->orderByRaw("FIELD(status, '未着手', '着手中', '完了')")
                     ->get(),
             'user' => Auth::user(),
             'taskStatuses' => $taskStatuses,
