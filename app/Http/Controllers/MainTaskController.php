@@ -21,7 +21,7 @@ class MainTaskController extends Controller
         return Inertia::render('MainTask/IndexMainTask', [
             'maintasks' => MainTask::where('user_id', $user->id)
                     // ->orderByRaw("FIELD(status, '".TaskStatus::NOT_STARTED."', '".TaskStatus::WORKING."', '".TaskStatus::COMPLETED."')")
-                    ->orderByRaw("FIELD(status, '未着手', '着手中', '完了')")
+                    ->orderByRaw("CASE status WHEN '".TaskStatus::NOT_STARTED."' THEN 1 WHEN '".TaskStatus::WORKING."' THEN 2 ELSE 3 END")
                     ->get(),
             'user' => Auth::user(),
             'taskStatuses' => $taskStatuses,
