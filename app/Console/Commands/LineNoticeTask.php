@@ -58,7 +58,7 @@ class LineNoticeTask extends Command
 
             $headers = [
                 'Content-Type: application/json',
-                'Authorization: Bearer'.config('services.line.channel_token'),
+                'Authorization: Bearer '.config('services.line.channel_token'),
             ];
 
             $ch = curl_init();
