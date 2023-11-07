@@ -15,6 +15,11 @@ Route::group(['middleware' => ['auth']], function(){
     Route::resource('mainTask', MainTaskController::class);
     Route::get('finishMainTask/{id}', [MainTaskController::class, 'finishMainTask'])->name('finishMainTask');
 });
+Route::get('/logOut/{id}', [ProfileController::class, 'logOut']);
+
+Route::get('/', function () {
+    return Inertia::render('Auth/Login');
+});
 
 // Route::get('/', function () {
 //     return Inertia::render('Welcome', [
@@ -24,9 +29,6 @@ Route::group(['middleware' => ['auth']], function(){
 //         'phpVersion' => PHP_VERSION,
 //     ]);
 // });
-Route::get('/', function () {
-    return Inertia::render('Auth/Login');
-});
 
 // Route::get('/dashboard', function () {
 //     return Inertia::render('Dashboard');
