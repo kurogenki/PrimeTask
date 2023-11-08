@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\User;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -60,4 +61,31 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+
+    public function logOut($id)
+    {
+        $user = User::findOrFail($id);
+
+        Auth::logout();
+        $user->delete();
+
+        return to_route('login');
+    }
+
+    // public function logOut(Request $request): RedirectResponse
+    // {
+    //     // $request->validate([
+    //     //     'password' => ['required', 'current-password'],
+    //     // ]);
+
+    //     Auth::logout();
+
+    //     $user->delete();
+
+    //     $request->session()->invalidate();
+    //     $request->session()->regenerateToken();
+
+    //     return Redirect::to('/');
+    // }
+
 }

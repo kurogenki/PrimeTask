@@ -19,7 +19,10 @@ class MainTaskController extends Controller
         $priorityRanks = PriorityRank::getValues();
 
         return Inertia::render('MainTask/IndexMainTask', [
-            'maintasks' => MainTask::all()->where('user_id', $user->id),
+            'maintasks' => MainTask::where('user_id', $user->id)
+                    // ->orderByRaw("FIELD(status, '".TaskStatus::NOT_STARTED."', '".TaskStatus::WORKING."', '".TaskStatus::COMPLETED."')")
+                    ->orderByRaw("CASE status WHEN '".TaskStatus::NOT_STARTED."' THEN 1 WHEN '".TaskStatus::WORKING."' THEN 2 ELSE 3 END")
+                    ->get(),
             'user' => Auth::user(),
             'taskStatuses' => $taskStatuses,
             'priorityRanks' => $priorityRanks
@@ -35,17 +38,17 @@ class MainTaskController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => ['required', 'max:20']
+            'title' => ['required']
         ]);
 
         $mainTask = new MainTask;
         $mainTask->user_id = Auth::user()->id;
         $mainTask->title = $request->title;
-        $mainTask->priority_rank = $request->priorityRank;
+        $mainTask->priority_rank = $request->priority_rank;
         $mainTask->purpose = $request->purpose;
-        $mainTask->status = $request->status;
-        $mainTask->start_at = $request->startAt;
-        $mainTask->finish_at = $request->finishAt;
+        $mainTask->status = $request->status ?? TaskStatus::NOT_STARTED;
+        $mainTask->start_day = $request->start_day;
+        $mainTask->finish_day = $request->finish_day;
         $mainTask->memo = $request->memo;
         $mainTask->save();
 
@@ -61,11 +64,11 @@ class MainTaskController extends Controller
         $mainTask = MainTask::findOrFail($id);
 
         $mainTask->title = $request->title;
-        $mainTask->priority_rank = $request->priorityRank;
+        $mainTask->priority_rank = $request->priority_rank;
         $mainTask->purpose = $request->purpose;
-        $mainTask->status = $request->status;
-        $mainTask->start_at = $request->startAt;
-        $mainTask->finish_at = $request->finishAt;
+        $mainTask->status = $request->status ?? TaskStatus::NOT_STARTED;
+        $mainTask->start_day = $request->start_day;
+        $mainTask->finish_day = $request->finish_day;
         $mainTask->memo = $request->memo;
         $mainTask->save();
         return to_route('mainTask.index') ->with([
@@ -86,7 +89,7 @@ class MainTaskController extends Controller
         $mainTask = MainTask::findOrFail($id);
         $mainTask->update([
             'status' => TaskStatus::COMPLETED,
-            'finish_at' => Carbon::now()
+            'finish_day' => Carbon::now()
         ]);
         $mainTask->save();
 
