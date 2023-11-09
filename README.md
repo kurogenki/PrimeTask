@@ -1,66 +1,33 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# PrimeTask
+### PrimeTaskの公式アカウント
+![PrimeTask　公式アカウント](https://github.com/kurogenki/PrimeTask/assets/111842468/6e301dea-b3d1-4e10-b314-43066c613823)  
+<img width="1440" alt="スクリーンショット 2023-11-09 1 06 31" src="https://github.com/kurogenki/PrimeTask/assets/111842468/8e3b8c4f-ebc6-4f9b-b652-b1121f738947">  
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+<img style="margin-right:20px" width="300" alt="PrimeTask LINE タスク通知" src="https://github.com/kurogenki/PrimeTask/assets/111842468/60095411-6269-49da-9e93-346811fe7ab4"><img width="300" alt="PrimeTask LINE タスク登録" src="https://github.com/kurogenki/PrimeTask/assets/111842468/c6661c41-9204-46e7-b881-45af7510102b">  
+LINEと連携したタスク管理アプリです。  
+公式アカウントにメッセージを送信することで、素早く、簡潔にタスクを登録することができます。  
+公式アカウントから、現在のタスクを確認することも可能です。  
+毎朝決まった時間に公式アカウントから残っているタスクが送られてくるので、その日のやることを整理して、1日を始めることができます。
+## URL
+https://primetask-a3cf57557e78.herokuapp.com  
+※ユーザー登録、ログインの際にLINEアカウントの認証が求められます。
 
-## About Laravel
+## 使用技術
+・ JavaScript  
+・ Vue.js 3.2.41  
+・ PHP 8.0.2  
+・ Laravel 9.52.15  
+・ MySQL  
+・ Node.js  
+・ Inertia.js  
+・ Vite  
+・ TailWindCSS  
+・ LINE Messaging API
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
-
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
-
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## 機能一覧
+・ ユーザー登録・ログイン機能 （LINEアカウントで管理）  
+・ タスク管理機能（表示、登録、編集、削除）  
+・ タスクのフィルター機能  
+・ タスク完了ボタン  
+・ LINEでのタスク登録機能  
+・ LINEへのタスクの通知機能  
