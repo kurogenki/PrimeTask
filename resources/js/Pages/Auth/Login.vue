@@ -65,7 +65,7 @@ const submit = () => {
         </div>
       </form>
       <div class="flex justify-center">
-        <Link class="flex justify-center w-full py-3 bg-green-500 text-white hover:bg-green-600" :href="route('lineLogin')">LINEでログイン</Link>
+        <Link class="flex justify-center w-full py-3 bg-green-500 text-white hover:bg-green-600" :href="route('lineLogin')">LINEログイン</Link>
       </div>
     </div>
   </GuestLayout>
