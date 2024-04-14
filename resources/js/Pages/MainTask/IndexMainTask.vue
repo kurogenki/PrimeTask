@@ -85,17 +85,17 @@ const showMode = ref(false);
 const editingUser = ref()
 // 新しくメインタスクを登録する
 const createMainTask = user => {
-	showMode.value = false;
-	creatingMode.value = true;
-	editingUser.value = user;
+ showMode.value = false;
+ creatingMode.value = true;
+ editingUser.value = user;
 }
 
 // 選択されたタスクの詳細を表示する
 const editingMainTask = ref();
 const showMainTask = maintask => {
-	creatingMode.value = false;
-	showMode.value = true;
-	editingMainTask.value = maintask;
+ creatingMode.value = false;
+ showMode.value = true;
+ editingMainTask.value = maintask;
 }
 
 // 完了ボタンを押した際に、ステータスを変更し、終了日を登録する

@@ -87,19 +87,19 @@ class LineLoginController extends Controller
 
         // あったらログイン
         if($user) {
-        Auth::login($user);
-        return redirect('mainTask');
+            Auth::login($user);
+            return redirect('mainTask');
 
         // なければ登録してからログイン
         }else {
-        $user=new User();
-        $user->provider='line';
-        $user->line_id=$profile->userId;
-        $user->name=$profile->displayName;
-        $user->save();
-        Auth::login($user);
-        return redirect('mainTask');
+            $user = new User();
+            $user->provider='line';
+            $user->line_id=$profile->userId;
+            $user->name=$profile->displayName;
+            $user->save();
+            Auth::login($user);
+            return redirect('mainTask');
         }
-      return redirect('mainTask');
+        return redirect('mainTask');
     }
 }
