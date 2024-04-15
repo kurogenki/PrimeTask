@@ -17,7 +17,7 @@ class LineMessengerController extends Controller
         // LINEから送られた内容を$inputsに代入
         $inputs=$request->all();
 
-        // そこからtypeをとりだし、$message_typeに代入
+        // typeをとりだし、$message_typeに代入
         $message_type=$inputs['events'][0]['type'];
 
         // メッセージが送られた場合、$message_typeは'message'となる。その場合処理実行。
@@ -48,7 +48,7 @@ class LineMessengerController extends Controller
                 '▼PrimeTask'.
                 "\n".
                 'https://primetask-a3cf57557e78.herokuapp.com/'
-            ]);
+                ]);
                 $request = new ReplyMessageRequest([
                     'replyToken' => $reply_token,
                     'messages' => [$message],
@@ -61,29 +61,45 @@ class LineMessengerController extends Controller
             // ユーザーの送信してきたメッセージの内容を、$text_messageに代入
             $text_message = $inputs['events'][0]['message']['text'];
 
-            // メッセージで"確認"と受信した場合に、ユーザーのタスクの一覧をメッセージとして送信
+            // "確認"及び”かくにん”と受信した場合に、タスクの一覧をメッセージとして送信
             if($text_message === "確認" || $text_message === "かくにん") {
                 $replyUserId = $user->id;
                 $mainTasks = MainTask::where('user_id', $user->id)
                             ->whereIn('status', ['未着手', '着手中'])
                             ->get();
 
-                $messages = '';
-                foreach ($mainTasks as $mainTask) {
-                    $messages .= 'タスク名' . "\n" .
-                                '「' . $mainTask->title . '」' .  "\n" .
-                                 "\n";
-                }
+                // 通知するタスクが存在しない場合
+                if(count($mainTasks) === 0) {
+                    $messages = '';
 
-                // ユーザーのタスク一覧をメッセージ送信として送信。
-                $textMessage = new TextMessage(['type' => 'text','text' => $messages .
-                '以上が「未着手」及び、「着手中」のタスクとして登録されています。'.
-                "\n".
-                "\n".
-                '▼PrimeTask'.
-                "\n".
-                'https://primetask-a3cf57557e78.herokuapp.com/'
-                ]);
+                    $textMessage = new TextMessage(['type' => 'text','text' => $messages .
+                    '現在「未着手」及び「着手中」のタスクはありません。'.
+                    "\n".
+                    "\n".
+                    '▼PrimeTask'.
+                    "\n".
+                    'https://primetask-a3cf57557e78.herokuapp.com/'
+                    ]);
+                }
+                // 通知するタスクが存在する場合
+                else {
+                    $messages = '';
+                    foreach ($mainTasks as $mainTask) {
+                        $messages .= 'タスク名' . "\n" .
+                                    '「' . $mainTask->title . '」' .  "\n" .
+                                     "\n";
+                    }
+
+                    // ユーザーのタスク一覧をメッセージ送信として送信。
+                    $textMessage = new TextMessage(['type' => 'text','text' => $messages .
+                    '以上が「未着手」及び、「着手中」のタスクとして登録されています。'.
+                    "\n".
+                    "\n".
+                    '▼PrimeTask'.
+                    "\n".
+                    'https://primetask-a3cf57557e78.herokuapp.com/'
+                    ]);
+                }
 
                 $request = new ReplyMessageRequest([
                     'replyToken' => $reply_token,

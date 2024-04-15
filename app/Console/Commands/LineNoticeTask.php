@@ -49,9 +49,9 @@ class LineNoticeTask extends Command
             ->whereIn('status', ['未着手', '着手中'])
             ->get();
 
-            // if($mainTasks = null) {
-            //     return 0;
-            // };
+            if(count($mainTasks) === 0) {
+                break;
+            };
 
             $messages = '';
             foreach ($mainTasks as $mainTask) {
