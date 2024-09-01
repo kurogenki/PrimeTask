@@ -54,11 +54,11 @@
             </select>
           </div>
           <div class="my-4">
-			<label>開始日：</label>
+   <label>開始日：</label>
             <input type="date" class="border-2 ml-1" v-model="form.start_day">
           </div>
           <div class="my-4">
-			<label>終了日：</label>
+   <label>終了日：</label>
             <input type="date" class="border-2 ml-1" v-model="form.finish_day">
           </div>
           <p class="mt-5 mb-1">目的</p>
@@ -87,10 +87,8 @@ const props = defineProps({
 })
 
 const { mainTask } = toRefs(props);
-console.log(mainTask.value);
 
 const emit = defineEmits(['update']);
-
 
 const form = reactive({
     id: mainTask.value.id,

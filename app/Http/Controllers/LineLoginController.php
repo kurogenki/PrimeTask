@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class LineLoginController extends Controller
 {
-  // Lineログイン画面を表示
+    // Lineログイン画面を表示
     public function lineLogin()
     {
         $state = Str::random(32);
@@ -32,48 +32,52 @@ class LineLoginController extends Controller
     // アクセストークン取得
     public function getAccessToken($req)
     {
-      $headers = [ 'Content-Type: application/x-www-form-urlencoded' ];
-      $post_data = array(
-        'grant_type'    => 'authorization_code',
-        'code'          => $req['code'],
-        'redirect_uri'  => config('services.line.redirect'),
-        'client_id'     =>  config('services.line.client_id'),
-        'client_secret' => config('services.line.client_secret'),
-      );
-      $url = 'https://api.line.me/oauth2/v2.1/token';
+        $headers = [ 'Content-Type: application/x-www-form-urlencoded' ];
+        $post_data = array(
+          'grant_type'    => 'authorization_code',
+          'code'          => $req['code'],
+          'redirect_uri'  => config('services.line.redirect'),
+          'client_id'     =>  config('services.line.client_id'),
+          'client_secret' => config('services.line.client_secret'),
+        );
+        $url = 'https://api.line.me/oauth2/v2.1/token';
 
-      $curl = curl_init();
-      curl_setopt($curl, CURLOPT_URL, $url);
-      curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'POST');
-      curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-      curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-      curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
-      curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($post_data));
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'POST');
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($post_data));
 
-      $res = curl_exec($curl);
-      curl_close($curl);
-      $json = json_decode($res);
-      $accessToken = $json->access_token;
+        $res = curl_exec($curl);
+        curl_close($curl);
+        $json = json_decode($res);
+        $accessToken = $json->access_token;
 
-      return $accessToken;
+        return $accessToken;
     }
 
     // プロフィール取得
     public function getProfile($at)
     {
-      $curl = curl_init();
-      curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $at));
-      curl_setopt($curl, CURLOPT_URL, 'https://api.line.me/v2/profile');
-      curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'GET');
-      curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $at));
+        curl_setopt($curl, CURLOPT_URL, 'https://api.line.me/v2/profile');
+        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'GET');
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 
-      $res = curl_exec($curl);
-      curl_close($curl);
+        $res = curl_exec($curl);
+        curl_close($curl);
 
-      $json = json_decode($res);
+        $json = json_decode($res, true);
 
-      return $json;
+        if(Auth::user()) {
+            $id = Auth::user()->id;
+            $json = array_merge($json,array('primeTaskUserId' => $id));
+        }
 
+        return $json;
     }
 
     // ログイン後のページ表示
@@ -82,24 +86,25 @@ class LineLoginController extends Controller
         $accessToken = $this->getAccessToken($request);
         $profile = $this->getProfile($accessToken);
 
-        // ユーザー情報あるか確認
-        $user=User::where('line_id', $profile->userId)->first();
+        // LINEログイン用のアカウントを設定
+        if(array_key_exists('primeTaskUserId', $profile)) {
+            $user = User::where('id', $profile['primeTaskUserId'])->first();
+            $user->provider = 'line';
+            $user->line_id = $profile['userId'];
+            $user->save();
 
-        // あったらログイン
-        if($user) {
-        Auth::login($user);
-        return redirect('mainTask');
-
-        // なければ登録してからログイン
-        }else {
-        $user=new User();
-        $user->provider='line';
-        $user->line_id=$profile->userId;
-        $user->name=$profile->displayName;
-        $user->save();
-        Auth::login($user);
-        return redirect('mainTask');
+            return redirect('mainTask');
         }
-      return redirect('mainTask');
+        // LINEを使ったログイン機能
+        else {
+            $user = User::where('line_id', $profile['userId'])->first();
+            if($user) {
+                Auth::login($user);
+                return redirect('mainTask');
+            }
+            else{
+                return redirect('/login');
+            }
+        }
     }
 }

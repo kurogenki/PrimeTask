@@ -21,6 +21,8 @@ Route::get('/', function () {
     return Inertia::render('Auth/Login');
 });
 
+
+
 // Route::get('/', function () {
 //     return Inertia::render('Welcome', [
 //         'canLogin' => Route::has('login'),
@@ -41,7 +43,7 @@ Route::middleware('auth')->group(function () {
 });
 
 // LINEログイン
-Route::get('/linelogin', [LineLoginController::class, 'lineLogin'])->name('linelogin');
+Route::get('/line-login', [LineLoginController::class, 'lineLogin'])->name('lineLogin');
 Route::get('/callback', [LineLoginController::class, 'callback'])->name('callback');
 
 // LINE メッセージ受信
